@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AuthContext } from "./context";
 import { getUser, type UserData } from "@/api/user/get-user";
 
@@ -25,18 +25,17 @@ export const AuthProvider = ({ children }: Props) => {
     checkAuth();
   }, []);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        isLoading,
-        setLoading,
-        isAuth,
-        setAuth,
-        currentUser,
-        setCurrentUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({
+      isLoading,
+      setLoading,
+      isAuth,
+      setAuth,
+      currentUser,
+      setCurrentUser,
+    }),
+    [isLoading, isAuth, currentUser],
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

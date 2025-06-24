@@ -1,10 +1,10 @@
 import { logOut } from "@/api/user/log-out";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/ui/button";
+import { Card, CardContent, CardFooter } from "@/ui/card";
 import { useNavigate } from "react-router";
 import { useAuth } from "@/contexts/auth/use-auth";
 
-export const TempPage = () => {
+export const HomePage = () => {
   const { setAuth, setCurrentUser } = useAuth();
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -21,11 +21,7 @@ export const TempPage = () => {
           <h3 className="text-3xl">Успешный вход</h3>
         </CardContent>
         <CardFooter className="flex flex-col w-full">
-          <Button
-            variant="purple"
-            className="h-[52px] mb-3"
-            onClick={handleLogout}
-          >
+          <Button variant="purple" className="mb-3" onClick={handleLogout}>
             Выйти
           </Button>
         </CardFooter>

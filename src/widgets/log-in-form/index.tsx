@@ -1,25 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "../../components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/ui/card";
 import { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "../../components/ui/form";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/ui/form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "@/contexts/auth/use-auth";
 import { logIn, type LogInParams } from "@/api/user/log-in";
 import axios from "axios";
+import { Logo } from "@/ui/logo";
 
 const formSchema = z.object({
   email: z
@@ -53,7 +43,7 @@ export const LogInForm = () => {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
         form.setError("email", {
           type: "manual",
-          message: "Такого пользователя не существует",
+          message: "Неверный email или пароль",
         });
       }
     }
@@ -67,14 +57,7 @@ export const LogInForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <Card className="w-[366px] flex flex-col px-[44px] pt-7 pb-[38px] gap-0 rounded-[12px]">
             <CardHeader className="flex justify-center mb-[20px]">
-              <Link to="/">
-                <img
-                  src="src/assets/images/logo.svg"
-                  alt="Logo"
-                  width="48px"
-                  height="48px"
-                />
-              </Link>
+              <Logo />
             </CardHeader>
             <CardContent className="flex flex-col gap-[30px] p-0 mb-[59px]">
               <FormField
@@ -116,17 +99,17 @@ export const LogInForm = () => {
               <Button
                 disabled={isSubmitting}
                 variant="purple"
-                className="h-[52px] w-full"
                 type="submit"
+                fullWidth
               >
                 Войти
               </Button>
               <Button
                 disabled={isSubmitting}
                 variant="outline"
-                className="h-[52px] w-full"
                 type="button"
                 asChild
+                fullWidth
               >
                 <Link to="/signup">Зарегистрироваться</Link>
               </Button>

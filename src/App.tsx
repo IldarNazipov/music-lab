@@ -2,11 +2,11 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify";
 import { LogInPage } from "./pages/log-in";
 import { SignUpPage } from "./pages/sign-up";
-import { ErrorPage } from "./pages/not-found";
+import { NotFoundPage } from "./pages/not-found";
 import { AuthProvider } from "./contexts/auth/provider.js";
-import { PrivateRoute } from "./components/private-route";
-import { TempPage } from "./pages/temp/index.js";
-import { PublicRoute } from "./components/public-route/index.js";
+import { PrivateRoute } from "./routes/private-route/index.js";
+import { HomePage } from "./pages/home/index.js";
+import { PublicRoute } from "./routes/public-route/index.js";
 
 export function App() {
   return (
@@ -22,11 +22,11 @@ export function App() {
             path="/"
             element={
               <PrivateRoute>
-                <TempPage />
+                <HomePage />
               </PrivateRoute>
             }
           />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AuthProvider>
       <ToastContainer />

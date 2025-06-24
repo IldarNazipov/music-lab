@@ -1,21 +1,29 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui/button";
+import { Title } from "@/ui/title";
 import { Link } from "react-router";
 
-export const ErrorPage = () => (
+export const NotFoundPage = () => (
   <div className="flex flex-col h-screen items-center justify-center">
     <div className="w-[431px] flex flex-col items-center">
-      <h1 className="text-white text-[160px] leading-[168px]">404</h1>
-      <div className="flex">
-        <h2 className="text-white text-[32px] leading-[52px] mr-[8px]">
+      <Title tag="h1" size={160}>
+        404
+      </Title>
+
+      <div className="flex items-center">
+        <Title tag="h2" size={32} className="mr-[8px]">
           Страница не найдена
-        </h2>
+        </Title>
         <div className="bg-[url(./assets/images/crying.svg)] w-[52px] h-[52px]"></div>
       </div>
-      <h3 className="text-[#4E4E4E]">Возможно, она была удалена</h3>
-      <h3 className="text-[#4E4E4E] pb-[36px]">
+
+      <Title tag="h3" size="lg" color="gray">
+        Возможно, она была удалена
+      </Title>
+      <Title tag="h3" size="lg" color="gray" className="pb-[36px]">
         или перенесена на другой адрес
-      </h3>
-      <Button variant="purple" className="h-[52px] px-[45px] py-[14px] w-auto">
+      </Title>
+
+      <Button variant="purple">
         <Link to="/"> Вернуться на главную</Link>
       </Button>
     </div>

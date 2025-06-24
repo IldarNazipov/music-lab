@@ -1,25 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/ui/card";
 import { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/ui/form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
+import { useNavigate } from "react-router";
 import { register, type RegisterParams } from "@/api/user/register";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Logo } from "@/ui/logo";
 
 const formSchema = z
   .object({
@@ -53,7 +43,7 @@ export const SignUpForm = () => {
     try {
       await register(values);
       form.reset();
-      toast.success("Пользователь успешно зарегистрирован");
+      toast.success("Вы успешно зарегистрировались");
       navigate("/login");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
@@ -65,20 +55,15 @@ export const SignUpForm = () => {
     }
   };
 
+  const { isSubmitting } = form.formState;
+
   return (
     <div className="flex h-screen items-center justify-center">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <Card className="w-[366px] flex flex-col px-[44px] pt-7 pb-[38px] gap-0 rounded-[12px]">
             <CardHeader className="flex justify-center mb-[20px]">
-              <Link to="/">
-                <img
-                  src="src/assets/images/logo.svg"
-                  alt="Logo"
-                  width="48px"
-                  height="48px"
-                />
-              </Link>
+              <Logo />
             </CardHeader>
             <CardContent className="flex flex-col gap-[30px] p-0 mb-[59px]">
               <FormField
@@ -88,7 +73,7 @@ export const SignUpForm = () => {
                   <FormItem>
                     <FormControl>
                       <Input
-                        disabled={form.formState.isSubmitting}
+                        disabled={isSubmitting}
                         placeholder="Логин"
                         type="text"
                         {...field}
@@ -105,7 +90,7 @@ export const SignUpForm = () => {
                   <FormItem>
                     <FormControl>
                       <Input
-                        disabled={form.formState.isSubmitting}
+                        disabled={isSubmitting}
                         placeholder="Пароль"
                         type="password"
                         {...field}
@@ -122,7 +107,7 @@ export const SignUpForm = () => {
                   <FormItem>
                     <FormControl>
                       <Input
-                        disabled={form.formState.isSubmitting}
+                        disabled={isSubmitting}
                         placeholder="Повторите пароль"
                         type="password"
                         {...field}
@@ -135,10 +120,10 @@ export const SignUpForm = () => {
             </CardContent>
             <CardFooter className="flex flex-col p-0 gap-[30px]">
               <Button
-                disabled={form.formState.isSubmitting}
+                disabled={isSubmitting}
                 type="submit"
                 variant="purple"
-                className="h-[52px] w-full"
+                fullWidth
               >
                 Зарегистрироваться
               </Button>
