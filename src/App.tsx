@@ -5,8 +5,8 @@ import { SignUpPage } from "./pages/sign-up";
 import { NotFoundPage } from "./pages/not-found";
 import { AuthProvider } from "./contexts/auth/provider.js";
 import { PrivateRoute } from "./routes/private-route/index.js";
-import { HomePage } from "./pages/home/index.js";
 import { PublicRoute } from "./routes/public-route/index.js";
+import { Title } from "./components/title.js";
 
 export function App() {
   return (
@@ -22,7 +22,7 @@ export function App() {
             path="/"
             element={
               <PrivateRoute>
-                <HomePage />
+                <Title>Hello</Title>
               </PrivateRoute>
             }
           />
