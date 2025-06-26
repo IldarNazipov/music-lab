@@ -1,6 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/common/components/card";
 import { z } from "zod";
 import {
   Form,
@@ -8,14 +13,14 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/form";
-import { Input } from "@/components/input";
-import { Button } from "@/components/button";
+} from "@/common/components/form";
+import { Input } from "@/common/components/input";
+import { Button } from "@/common/components/button";
 import { useNavigate } from "react-router";
 import { register, type RegisterParams } from "@/api/user/register";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Logo } from "@/components/logo";
+import { Logo } from "@/common/components/logo";
 
 const formSchema = z
   .object({

@@ -1,5 +1,5 @@
-import { Button } from "@/components/button";
-import { Title } from "@/components/title";
+import { Button } from "@/common/components/button";
+import { Title } from "@/common/components/title";
 import { Link } from "react-router";
 
 export const NotFoundPage = () => (

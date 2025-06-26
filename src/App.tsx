@@ -4,9 +4,9 @@ import { LogInPage } from "./pages/log-in";
 import { SignUpPage } from "./pages/sign-up";
 import { NotFoundPage } from "./pages/not-found";
 import { AuthProvider } from "./contexts/auth/provider.js";
-import { PrivateRoute } from "./routes/private-route/index.js";
-import { PublicRoute } from "./routes/public-route/index.js";
-import { Title } from "./components/title.js";
+import { PrivateRoute } from "./common/routing/private-route";
+import { PublicRoute } from "./common/routing/public-route";
+import { Title } from "./common/components/title";
 
 export function App() {
   return (
