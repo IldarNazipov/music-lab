@@ -1,11 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/common/components/card";
+import { CardContent, CardFooter } from "@/common/components/card";
 import { z } from "zod";
 import {
   Form,
@@ -20,7 +15,7 @@ import { useNavigate } from "react-router";
 import { register, type RegisterParams } from "@/api/user/register";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Logo } from "@/common/components/logo";
+import { AuthLayout } from "@/common/components/auth-layout";
 
 const formSchema = z
   .object({
@@ -72,10 +67,7 @@ export const SignUpForm = () => {
     <div className="flex h-screen items-center justify-center">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card className="w-[366px] flex flex-col px-[44px] pt-7 pb-[38px] gap-0 rounded-[12px]">
-            <CardHeader className="flex justify-center mb-[20px]">
-              <Logo />
-            </CardHeader>
+          <AuthLayout>
             <CardContent className="flex flex-col gap-[30px] p-0 mb-[59px]">
               <FormField
                 control={form.control}
@@ -139,7 +131,7 @@ export const SignUpForm = () => {
                 Зарегистрироваться
               </Button>
             </CardFooter>
-          </Card>
+          </AuthLayout>
         </form>
       </Form>
     </div>

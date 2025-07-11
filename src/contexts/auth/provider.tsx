@@ -6,7 +6,7 @@ type Props = { children: React.ReactNode };
 
 export const AuthProvider = ({ children }: Props) => {
   const [isAuth, setAuth] = useState(false);
-  const [currentUser, setCurrentUser] = useState<UserData | null>(null);
+  const [, setCurrentUser] = useState<UserData | null>(null);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,13 +28,10 @@ export const AuthProvider = ({ children }: Props) => {
   const value = useMemo(
     () => ({
       isLoading,
-      setLoading,
       isAuth,
       setAuth,
-      currentUser,
-      setCurrentUser,
     }),
-    [isLoading, isAuth, currentUser],
+    [isLoading, isAuth],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
