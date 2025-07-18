@@ -6,14 +6,14 @@ type Props = { children: React.ReactNode };
 
 export const AuthProvider = ({ children }: Props) => {
   const [isAuth, setAuth] = useState(false);
-  const [, setCurrentUser] = useState<UserData | null>(null);
+  const [currentUser, setCurrentUser] = useState<UserData | null>(null);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await getUser();
-        setCurrentUser(response);
+        const user = await getUser();
+        setCurrentUser(user);
         setAuth(true);
       } catch {
         setCurrentUser(null);
@@ -29,9 +29,11 @@ export const AuthProvider = ({ children }: Props) => {
     () => ({
       isLoading,
       isAuth,
+      currentUser,
       setAuth,
+      setCurrentUser,
     }),
-    [isLoading, isAuth],
+    [isLoading, isAuth, currentUser],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

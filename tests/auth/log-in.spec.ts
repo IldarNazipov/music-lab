@@ -55,6 +55,7 @@ test.describe('Фича: авторизация пользователя', () =>
           },
         });
       });
+
       await page.getByPlaceholder('Логин').fill('test@test.com');
       await page.getByPlaceholder('Пароль').fill('123456');
       await page.getByRole('button', { name: 'Войти' }).click();

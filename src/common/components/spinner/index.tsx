@@ -1,5 +1,7 @@
-export const Spinner = () => (
-  <div role="status" className="flex h-screen items-center justify-center">
+import { cn } from "@/lib/сlassnames";
+
+export const Spinner = ({ className }: { className: string }) => (
+  <div role="status" className={cn(className)}>
     <svg
       aria-hidden="true"
       className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"

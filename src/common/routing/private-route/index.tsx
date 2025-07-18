@@ -6,7 +6,7 @@ export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuth, isLoading } = useAuth();
 
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner className="flex h-screen items-center justify-center" />;
   }
 
   if (!isAuth) {
