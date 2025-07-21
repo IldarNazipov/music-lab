@@ -1,27 +1,18 @@
-import { getPlaylists } from "@/api/playlists/get-playlists";
-import { getTracks } from "@/api/tracks/get-tracks";
 import { Title } from "@/common/components/title";
 import { TracksTable } from "@/common/components/tracks-table";
-import { useQuery } from "@tanstack/react-query";
+import { useGetPlaylists } from "@/hooks/use-get-playlists";
+import { useGetTracks } from "@/hooks/use-get-tracks";
 import { useParams } from "react-router";
 
 export const PlaylistPage = () => {
   const { id } = useParams();
-
-  const { data: playlists } = useQuery({
-    queryKey: ["playlists"],
-    queryFn: getPlaylists,
-  });
-
-  const { data: tracks, isLoading: tracksLoading } = useQuery({
-    queryKey: ["tracks"],
-    queryFn: getTracks,
-  });
+  const { data: playlists } = useGetPlaylists();
+  const { data: tracks, isLoading: tracksLoading } = useGetTracks();
 
   const targetPlaylist = playlists?.find((item) => item._id === id);
-  const playlistTracks = tracks?.filter((item) =>
-    targetPlaylist?.tracks.includes(item._id),
-  );
+
+  const playlistTracks =
+    tracks?.filter((item) => targetPlaylist?.tracks.includes(item._id)) || [];
 
   return (
     <div className="w-[70%]">
@@ -29,7 +20,7 @@ export const PlaylistPage = () => {
         {targetPlaylist?.name}
       </Title>
 
-      <TracksTable tracks={playlistTracks!} isLoading={tracksLoading} />
+      <TracksTable tracks={playlistTracks} isLoading={tracksLoading} />
     </div>
   );
 };
