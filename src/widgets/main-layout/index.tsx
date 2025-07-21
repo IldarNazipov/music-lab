@@ -3,6 +3,7 @@ import { BurgerIcon } from "@/common/components/burger-icon";
 import { Input } from "@/common/components/input";
 import { Logo } from "@/common/components/logo";
 import { LogoutIcon } from "@/common/components/logout-icon";
+import { SearchIcon } from "@/common/components/search-icon";
 import { ThemeIcon } from "@/common/components/theme-icon";
 import { useAuth } from "@/contexts/auth/use-auth";
 import { cn } from "@/lib/сlassnames";
@@ -39,7 +40,7 @@ export const MainLayout = () => {
           onClick={() => setVisible(!isVisible)}
           aria-label="Открыть меню"
         >
-          <BurgerIcon className="mb-[35px]" />
+          <BurgerIcon width={20} height={15} className="mb-[35px]" />
         </button>
 
         <div
@@ -66,7 +67,7 @@ export const MainLayout = () => {
             Выйти
           </button>
           <button>
-            <ThemeIcon />
+            <ThemeIcon width={40} height={40} />
           </button>
         </div>
       </div>
@@ -74,7 +75,11 @@ export const MainLayout = () => {
       <div className="flex grow flex-col ml-[50px] mt-[24px]">
         <div className="flex items-center">
           <div className="relative grow">
-            <div className="absolute top-1/2 left-[9px] transform -translate-y-1/2 w-[17px] h-[17px] bg-[url(./assets/images/search.svg)]"></div>
+            <SearchIcon
+              width={16}
+              height={16}
+              className="absolute top-1/2 left-[9px] transform -translate-y-1/2"
+            />
             <Input
               type="text"
               placeholder="Поиск"
@@ -84,7 +89,7 @@ export const MainLayout = () => {
 
           <div className="w-[250px] mr-[90px] flex justify-end">
             <button onClick={handleLogout}>
-              <LogoutIcon />
+              <LogoutIcon width={41} height={41} />
             </button>
           </div>
         </div>

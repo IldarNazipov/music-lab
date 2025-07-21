@@ -4,8 +4,8 @@ import { createContext } from "react";
 type AuthContextType = {
   isLoading: boolean;
   isAuth: boolean;
-  setAuth: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentUser: React.Dispatch<React.SetStateAction<UserData | null>>;
+  setAuth: (isAuth: boolean) => void;
+  setCurrentUser: (user: UserData | null) => void;
   currentUser: UserData | null;
 };
 

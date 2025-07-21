@@ -1,6 +1,6 @@
 import { apiClient } from "../../axios";
 
-export type PlaylistsData = {
+export type PlaylistData = {
   _id: string;
   name: string;
   owner: string;
@@ -8,7 +8,7 @@ export type PlaylistsData = {
 };
 
 export const getPlaylists = async () => {
-  const result = await apiClient.get<PlaylistsData[]>("/playlists");
+  const result = await apiClient.get<PlaylistData[]>("/playlists");
 
   return result.data;
 };

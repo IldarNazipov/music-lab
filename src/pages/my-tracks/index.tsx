@@ -1,14 +1,14 @@
-import { getTracks } from "@/api/tracks/get-tracks";
 import { getUser } from "@/api/user/get-user";
 import { Spinner } from "@/common/components/spinner";
 import { Title } from "@/common/components/title";
 import { TracksTable } from "@/common/components/tracks-table";
 import { useAuth } from "@/contexts/auth/use-auth";
-import { useQuery } from "@tanstack/react-query";
+import { useGetTracks } from "@/hooks/use-get-tracks";
 import { useEffect } from "react";
 
 export const MyTracksPage = () => {
   const { currentUser, setCurrentUser } = useAuth();
+  const { data: tracks, isLoading: tracksLoading } = useGetTracks();
 
   useEffect(() => {
     const updateUser = async () => {
@@ -18,11 +18,6 @@ export const MyTracksPage = () => {
 
     updateUser();
   }, [setCurrentUser]);
-
-  const { data: tracks, isLoading: tracksLoading } = useQuery({
-    queryKey: ["tracks"],
-    queryFn: getTracks,
-  });
 
   const favoriteTracks =
     tracks?.filter((track) => currentUser?.favorites?.includes(track._id)) ||

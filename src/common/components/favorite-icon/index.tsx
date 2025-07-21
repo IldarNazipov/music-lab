@@ -2,11 +2,13 @@ import { cn } from "@/lib/сlassnames";
 
 export const FavoriteIcon = ({
   className,
+  width,
+  height,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg
-    width="16"
-    height="14"
+    width={width}
+    height={height}
     viewBox="0 0 16 14"
     fill="none"
     stroke="currentColor"

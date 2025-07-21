@@ -1,20 +1,13 @@
-import { getPlaylists } from "@/api/playlists/get-playlists";
-import { getTracks } from "@/api/tracks/get-tracks";
+import { Playlist } from "@/common/components/playlist";
+import { SkeletonPlaylists } from "@/common/components/skeleton-playlists";
 import { Title } from "@/common/components/title";
 import { TracksTable } from "@/common/components/tracks-table";
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router";
+import { useGetPlaylists } from "@/hooks/use-get-playlists";
+import { useGetTracks } from "@/hooks/use-get-tracks";
 
 export const MainPage = () => {
-  const { data: tracks, isLoading: tracksLoading } = useQuery({
-    queryKey: ["tracks"],
-    queryFn: getTracks,
-  });
-
-  const { data: playlists, isLoading: playlistsLoading } = useQuery({
-    queryKey: ["playlists"],
-    queryFn: getPlaylists,
-  });
+  const { data: tracks, isLoading: tracksLoading } = useGetTracks();
+  const { data: playlists, isLoading: playlistsLoading } = useGetPlaylists();
 
   return (
     <div className="flex">
@@ -43,33 +36,11 @@ export const MainPage = () => {
 
       <div className="ml-[90px] mt-[250px] min-w-[250px] mr-[90px]">
         {playlistsLoading ? (
-          <div className="animate-pulse">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <div
-                key={index}
-                className="w-full h-[150px] bg-[#313131] mb-[30px]"
-              ></div>
-            ))}
-          </div>
+          <SkeletonPlaylists count={3} />
         ) : (
-          playlists?.map((playlist, index) => {
-            const coverIndex = index % 3;
-
-            return (
-              <Link key={playlist._id} to={`/playlists/${playlist._id}`}>
-                <div
-                  className="w-full h-[150px] mb-[30px] flex items-center justify-center transition-transform duration-300 hover:scale-105"
-                  style={{
-                    backgroundImage: `url(src/assets/images/cover_${coverIndex}.jpg)`,
-                  }}
-                >
-                  <span className="select-none text-white text-2xl">
-                    {playlist.name}
-                  </span>
-                </div>
-              </Link>
-            );
-          })
+          playlists?.map((playlist, index) => (
+            <Playlist playlist={playlist} index={index} />
+          ))
         )}
       </div>
     </div>
