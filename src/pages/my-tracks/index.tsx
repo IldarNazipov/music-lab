@@ -16,13 +16,21 @@ export const MyTracksPage = () => {
     updateUser();
   }, [setCurrentUser]);
 
+  const favoriteIds = currentUser?.favorites || [];
+
   return (
     <div className="w-[70%]">
       <Title size="4xl" className="mt-[50px] mb-[60px]">
         Мои треки
       </Title>
 
-      {<TracksList ids={currentUser?.favorites} />}
+      {favoriteIds.length > 0 ? (
+        <TracksList ids={favoriteIds} />
+      ) : (
+        <Title tag="h2" size="xl">
+          Вы еще не добавили ни одного трека в избранное
+        </Title>
+      )}
     </div>
   );
 };
