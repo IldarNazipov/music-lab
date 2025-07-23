@@ -2,7 +2,7 @@ name: CI
 on: push
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -14,7 +14,7 @@ jobs:
         run: npm run lint
 
   type-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,7 +26,7 @@ jobs:
         run: npx tsc --noEmit
 
   tests-unit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,7 +38,7 @@ jobs:
         run: npm run test:unit
 
   tests-integration:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [lint, type-check]
     timeout-minutes: 60
     steps:

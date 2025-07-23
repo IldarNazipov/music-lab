@@ -14,7 +14,7 @@ export const SearchIcon = ({
     <path
       d="M9.92761 10.7749L13.37 15.0645"
       stroke="white"
-      stroke-linecap="round"
+      strokeLinecap="round"
     />
     <circle
       cx="6.48527"

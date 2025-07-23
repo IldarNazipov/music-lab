@@ -9,8 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "husky",
-    "test:integration": "npx playwright test",
-    "test:unit": "npx vitest"
+    "test:integration": "playwright test",
+    "test:unit": "vitest",
+    "test": "npm run test:integration && npm run test:unit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

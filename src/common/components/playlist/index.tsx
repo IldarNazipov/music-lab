@@ -11,7 +11,7 @@ export const Playlist = ({
   const coverIndex = index % 3;
 
   return (
-    <Link key={playlist._id} to={`/playlists/${playlist._id}`}>
+    <Link to={`/playlists/${playlist._id}`}>
       <div
         className="w-full h-[150px] mb-[30px] flex items-center justify-center transition-transform duration-300 hover:scale-105"
         style={{
