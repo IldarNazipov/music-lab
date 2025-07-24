@@ -10,8 +10,8 @@
     "preview": "vite preview",
     "prepare": "husky",
     "test:integration": "playwright test",
-    "test:unit": "vitest",
-    "test": "npm run test:integration && npm run test:unit"
+    "test:unit": "vitest --run",
+    "test": "npm run test:unit && npm run test:integration"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

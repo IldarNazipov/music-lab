@@ -1,22 +1,11 @@
-import { getUser } from "@/api/user/get-user";
 import { Title } from "@/common/components/title";
-import { useAuth } from "@/contexts/auth/use-auth";
 import { TracksList } from "@/features/tracks-list";
-import { useEffect } from "react";
+import { useUser } from "@/hooks/use-user";
 
 export const MyTracksPage = () => {
-  const { currentUser, setCurrentUser } = useAuth();
+  const { data } = useUser();
 
-  useEffect(() => {
-    const updateUser = async () => {
-      const user = await getUser();
-      setCurrentUser(user);
-    };
-
-    updateUser();
-  }, [setCurrentUser]);
-
-  const favoriteIds = currentUser?.favorites || [];
+  const favoriteIds = data?.favorites || [];
 
   return (
     <div className="w-[70%]">

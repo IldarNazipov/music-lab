@@ -1,18 +1,15 @@
 import { Title } from "@/common/components/title";
-import { TracksTable } from "@/common/components/tracks-table";
-import { useGetPlaylists } from "@/hooks/use-get-playlists";
-import { useGetTracks } from "@/hooks/use-get-tracks";
+import { useGetPlaylists } from "@/api/hooks/use-get-playlists";
 import { useParams } from "react-router";
+import { TracksList } from "@/features/tracks-list";
 
 export const PlaylistPage = () => {
   const { id } = useParams();
-  const { data: playlists } = useGetPlaylists();
-  const { data: tracks, isLoading: tracksLoading } = useGetTracks();
+  const { data } = useGetPlaylists();
 
-  const targetPlaylist = playlists?.find((item) => item._id === id);
+  const targetPlaylist = data?.find((playlist) => playlist._id === id);
 
-  const playlistTracks =
-    tracks?.filter((item) => targetPlaylist?.tracks.includes(item._id)) || [];
+  const playlistTracksIds = targetPlaylist?.tracks || [];
 
   return (
     <div className="w-[70%]">
@@ -20,7 +17,7 @@ export const PlaylistPage = () => {
         {targetPlaylist?.name}
       </Title>
 
-      <TracksTable tracks={playlistTracks} isLoading={tracksLoading} />
+      <TracksList ids={playlistTracksIds} />
     </div>
   );
 };

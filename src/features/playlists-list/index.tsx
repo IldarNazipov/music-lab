@@ -1,19 +1,19 @@
 import { Playlist } from "@/common/components/playlist";
 import { SkeletonPlaylists } from "@/common/components/skeleton-playlists";
-import { useGetPlaylists } from "@/hooks/use-get-playlists";
+import { useGetPlaylists } from "@/api/hooks/use-get-playlists";
 
 export const PlaylistsList = () => {
-  const { data: playlists, isLoading: playlistsLoading } = useGetPlaylists();
+  const { data, isLoading } = useGetPlaylists();
+
+  if (isLoading) {
+    return <SkeletonPlaylists count={3} />;
+  }
 
   return (
     <>
-      {playlistsLoading ? (
-        <SkeletonPlaylists count={3} />
-      ) : (
-        playlists?.map((playlist, index) => (
-          <Playlist playlist={playlist} key={playlist._id} index={index} />
-        ))
-      )}
+      {data?.map((playlist, index) => (
+        <Playlist playlist={playlist} key={playlist._id} index={index} />
+      ))}
     </>
   );
 };

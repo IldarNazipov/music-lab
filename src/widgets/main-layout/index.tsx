@@ -5,22 +5,21 @@ import { Logo } from "@/common/components/logo";
 import { LogoutIcon } from "@/common/components/logout-icon";
 import { SearchIcon } from "@/common/components/search-icon";
 import { ThemeIcon } from "@/common/components/theme-icon";
-import { useAuth } from "@/contexts/auth/use-auth";
 import { cn } from "@/lib/сlassnames";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router";
 
 export const MainLayout = () => {
   const [isVisible, setVisible] = useState(false);
 
-  const { setAuth, setCurrentUser } = useAuth();
+  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     await logOut();
-    setAuth(false);
-    setCurrentUser(null);
+    queryClient.resetQueries({ queryKey: ["user"] });
     navigate("/login");
   };
 
