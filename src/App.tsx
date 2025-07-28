@@ -6,7 +6,10 @@ import { NotFoundPage } from "./pages/not-found";
 import { AuthProvider } from "./contexts/auth/provider.js";
 import { PrivateRoute } from "./common/routing/private-route";
 import { PublicRoute } from "./common/routing/public-route";
-import { Title } from "./common/components/title";
+import { MainLayout } from "./widgets/main-layout";
+import { MainPage } from "./pages/main/index.js";
+import { MyTracksPage } from "./pages/my-tracks/index.js";
+import { PlaylistPage } from "./pages/playlist/index.js";
 
 export function App() {
   return (
@@ -19,13 +22,17 @@ export function App() {
           </Route>
 
           <Route
-            path="/"
             element={
               <PrivateRoute>
-                <Title>Hello</Title>
+                <MainLayout />
               </PrivateRoute>
             }
-          />
+          >
+            <Route path="/" element={<MainPage />} />
+            <Route path="/mytracks" element={<MyTracksPage />} />
+            <Route path="/playlists/:id" element={<PlaylistPage />} />
+          </Route>
+
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AuthProvider>

@@ -12,10 +12,10 @@ import {
 import { Input } from "@/common/components/input";
 import { Button } from "@/common/components/button";
 import { Link, useNavigate } from "react-router";
-import { useAuth } from "@/contexts/auth/use-auth";
 import { logIn, type LogInParams } from "@/api/user/log-in";
 import axios from "axios";
 import { AuthLayout } from "@/common/components/auth-layout";
+import { useQueryClient } from "@tanstack/react-query";
 
 const formSchema = z.object({
   email: z
@@ -27,8 +27,6 @@ const formSchema = z.object({
 });
 
 export const LogInForm = () => {
-  const { setAuth } = useAuth();
-
   const navigate = useNavigate();
 
   const form = useForm({
@@ -40,10 +38,12 @@ export const LogInForm = () => {
     mode: "onChange",
   });
 
+  const queryClient = useQueryClient();
+
   const onSubmit = async (values: LogInParams) => {
     try {
       await logIn(values);
-      setAuth(true);
+      await queryClient.invalidateQueries({ queryKey: ["user"] });
       navigate("/");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {

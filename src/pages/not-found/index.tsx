@@ -1,4 +1,5 @@
 import { Button } from "@/common/components/button";
+import { CryingIcon } from "@/common/components/crying-icon";
 import { Title } from "@/common/components/title";
 import { Link } from "react-router";
 
@@ -13,14 +14,12 @@ export const NotFoundPage = () => (
         <Title tag="h2" size="3xl" className="mr-[8px]">
           Страница не найдена
         </Title>
-        <div className="bg-[url(./assets/images/crying.svg)] w-[52px] h-[52px]"></div>
+        <CryingIcon width={52} height={52} />
       </div>
 
-      <Title tag="h3" size="lg" color="gray">
-        Возможно, она была удалена
-      </Title>
-      <Title tag="h3" size="lg" color="gray" className="pb-[36px]">
-        или перенесена на другой адрес
+      <Title tag="h3" size="lg" color="gray" className="pb-[36px] text-center">
+        <div>Возможно, она была удалена</div>
+        <div>или перенесена на другой адрес</div>
       </Title>
 
       <Button variant="purple">
