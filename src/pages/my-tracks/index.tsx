@@ -1,6 +1,6 @@
 import { Title } from "@/common/components/title";
 import { TracksList } from "@/features/tracks-list";
-import { useUser } from "@/hooks/use-user";
+import { useUser } from "@/api/hooks/use-user";
 
 export const MyTracksPage = () => {
   const { data } = useUser();

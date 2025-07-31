@@ -13,7 +13,7 @@ export const TrackItem = ({ track }: { track: TrackData }) => {
     <li className="grid grid-cols-[6fr_4fr_3fr_max-content] items-center mb-[12px] pr-[10px] hover:bg-neutral-800 cursor-pointer">
       <div className="flex items-center mr-[12px]">
         <CoverIcon width={52} height={52} className="shrink-0 mr-[17px]" />
-        <div>{track.name}</div>
+        <div data-testid="track-name">{track.name}</div>
       </div>
 
       <div>{track.author}</div>

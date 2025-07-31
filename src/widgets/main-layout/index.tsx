@@ -1,4 +1,4 @@
-import { logOut } from "@/api/user/log-out";
+import { useLogOut } from "@/api/hooks/use-logout";
 import { BurgerIcon } from "@/common/components/burger-icon";
 import { Input } from "@/common/components/input";
 import { Logo } from "@/common/components/logo";
@@ -6,21 +6,26 @@ import { LogoutIcon } from "@/common/components/logout-icon";
 import { SearchIcon } from "@/common/components/search-icon";
 import { ThemeIcon } from "@/common/components/theme-icon";
 import { cn } from "@/lib/сlassnames";
-import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router";
 
 export const MainLayout = () => {
   const [isVisible, setVisible] = useState(false);
-
-  const queryClient = useQueryClient();
+  const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleLogout = async () => {
-    await logOut();
-    queryClient.resetQueries({ queryKey: ["user"] });
-    navigate("/login");
+  useEffect(() => {
+    setSearch("");
+  }, [location.pathname]);
+
+  const { mutate } = useLogOut();
+
+  const handleLogout = () => {
+    mutate(undefined, {
+      onSuccess: () => navigate("/login"),
+    });
   };
 
   return (
@@ -82,6 +87,9 @@ export const MainLayout = () => {
             <Input
               type="text"
               placeholder="Поиск"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              name="search"
               className="text-white pl-[40px] placeholder:text-base border-[#4E4E4E]"
             />
           </div>
@@ -93,7 +101,7 @@ export const MainLayout = () => {
           </div>
         </div>
 
-        <Outlet />
+        <Outlet context={{ search, setSearch }} />
       </div>
     </div>
   );
