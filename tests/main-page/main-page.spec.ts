@@ -124,7 +124,7 @@ test.describe("Фича: поиск и фильтрация теков", () => {
     await expect(page.getByText("Mule Train")).not.toBeVisible();
   });
 
-  test("Если нажать на кнопку 'исполнителю' и выбрать исполнителя, то треки отфильтруются по исполнителю", async ({
+  test("Если нажать на фильтр 'исполнителю' и выбрать исполнителя, то треки отфильтруются по исполнителю", async ({
     page,
   }) => {
     await page.getByText("исполнителю").click();
@@ -135,7 +135,7 @@ test.describe("Фича: поиск и фильтрация теков", () => {
     await expect(page.getByText("Mule Train")).not.toBeVisible();
   });
 
-  test("Если нажать на кнопку 'году выпуска' и выбрать 'Более старые' или 'Более новые', то порядок отображения треков изменится", async ({
+  test("Если нажать на фильтр 'году выпуска' и выбрать 'Более старые' или 'Более новые', то порядок отображения треков изменится", async ({
     page,
   }) => {
     await page.getByTestId("track-name").first().waitFor({ state: "visible" });
@@ -144,7 +144,7 @@ test.describe("Фича: поиск и фильтрация теков", () => {
       .getByTestId("track-name")
       .allTextContents();
 
-    await expect(trackNamesBefore).toEqual([
+    expect(trackNamesBefore).toEqual([
       "Mule Train",
       "Come Together",
       "Mack the Knife",
@@ -158,7 +158,7 @@ test.describe("Фича: поиск и фильтрация теков", () => {
       .getByTestId("track-name")
       .allTextContents();
 
-    await expect(trackNamesAsc).toEqual([
+    expect(trackNamesAsc).toEqual([
       "Mack the Knife",
       "Mule Train",
       "Come Together",
@@ -172,14 +172,14 @@ test.describe("Фича: поиск и фильтрация теков", () => {
       .getByTestId("track-name")
       .allTextContents();
 
-    await expect(trackNamesDesc).toEqual([
+    expect(trackNamesDesc).toEqual([
       "Come Together",
       "Mule Train",
       "Mack the Knife",
     ]);
   });
 
-  test("Если нажать на кнопку 'жанру' и выбрать какой-нибудь жанр, то треки отфильтруются по выбранному жанру", async ({
+  test("Если нажать на фильтр 'жанру' и выбрать какой-нибудь жанр, то треки отфильтруются по выбранному жанру", async ({
     page,
   }) => {
     await page.getByText("жанру").click();

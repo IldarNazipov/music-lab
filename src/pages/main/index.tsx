@@ -1,3 +1,4 @@
+import { useGetTracks } from "@/api/hooks/use-get-tracks";
 import { Badge } from "@/common/components/badge";
 import { Label } from "@/common/components/label";
 import {
@@ -10,8 +11,11 @@ import { Title } from "@/common/components/title";
 import { PlaylistsList } from "@/features/playlists-list";
 import { TracksList } from "@/features/tracks-list";
 import { useFilters } from "@/hooks/use-filters";
+import { cn } from "@/lib/сlassnames";
 
 export const MainPage = () => {
+  const { data } = useGetTracks();
+
   const {
     openFilter,
     handleOpenFilter,
@@ -20,12 +24,11 @@ export const MainPage = () => {
     allAuthors,
     allGenres,
     selectedAuthors,
-    setSelectedAuthors,
+    toggleAuthorItem,
     selectedGenres,
-    setSelectedGenres,
-    toggleFilterItem,
+    toggleGenreItem,
     ids,
-  } = useFilters();
+  } = useFilters(data);
 
   return (
     <div className="flex">
@@ -56,14 +59,12 @@ export const MainPage = () => {
                   {allAuthors.map((name) => (
                     <li key={name}>
                       <button
-                        onClick={() =>
-                          toggleFilterItem(
-                            name,
-                            selectedAuthors,
-                            setSelectedAuthors,
-                          )
-                        }
-                        className={`text-left hover:text-[#D9B6FF] active:text-[#AD61FF] ${selectedAuthors.includes(name) ? "text-[#B672FF] underline" : ""}`}
+                        onClick={() => toggleAuthorItem(name)}
+                        className={cn(
+                          "text-left hover:text-[#D9B6FF] active:text-[#AD61FF]",
+                          selectedAuthors.includes(name) &&
+                            "text-[#B672FF] underline",
+                        )}
                       >
                         {name}
                       </button>
@@ -129,14 +130,12 @@ export const MainPage = () => {
                   {allGenres.map((name, index) => (
                     <li key={index}>
                       <button
-                        onClick={() => {
-                          toggleFilterItem(
-                            name,
-                            selectedGenres,
-                            setSelectedGenres,
-                          );
-                        }}
-                        className={`text-left hover:text-[#D9B6FF] active:text-[#AD61FF] ${selectedGenres.includes(name) ? "text-[#B672FF] underline" : ""}`}
+                        onClick={() => toggleGenreItem(name)}
+                        className={cn(
+                          "text-left hover:text-[#D9B6FF] active:text-[#AD61FF]",
+                          selectedGenres.includes(name) &&
+                            "text-[#B672FF] underline",
+                        )}
                       >
                         {name}
                       </button>

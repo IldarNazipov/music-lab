@@ -1,15 +1,14 @@
-import { useGetTracks } from "@/api/hooks/use-get-tracks";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useOutletContext } from "react-router";
 import _ from "lodash";
+import type { TrackData } from "@/api/tracks/get-tracks";
 
 type FilterType = "author" | "genre" | "date" | null;
+type SortingOrderType = "asc" | "desc" | null;
 
-export const useFilters = () => {
-  const { data } = useGetTracks();
-
+export const useFilters = (data?: TrackData[]) => {
   const [openFilter, setOpenFilter] = useState<FilterType>(null);
-  const [sortingOrder, setSortingOrder] = useState<"asc" | "desc" | null>(null);
+  const [sortingOrder, setSortingOrder] = useState<SortingOrderType>(null);
   const [selectedAuthors, setSelectedAuthors] = useState<string[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
@@ -41,20 +40,23 @@ export const useFilters = () => {
     }
   }, []);
 
-  const toggleFilterItem = useCallback(
-    (
-      item: string,
-      filterList: string[],
-      setFilterList: (val: string[]) => void,
-    ) => {
-      if (filterList.includes(item)) {
-        setFilterList(filterList.filter((i) => i !== item));
-      } else {
-        setFilterList([...filterList, item]);
+  const toggleAuthorItem = useCallback((name: string) => {
+    setSelectedAuthors((prev) => {
+      if (prev.includes(name)) {
+        return prev.filter((i) => i !== name);
       }
-    },
-    [],
-  );
+      return [...prev, name];
+    });
+  }, []);
+
+  const toggleGenreItem = useCallback((name: string) => {
+    setSelectedGenres((prev) => {
+      if (prev.includes(name)) {
+        return prev.filter((i) => i !== name);
+      }
+      return [...prev, name];
+    });
+  }, []);
 
   const ids = useMemo(() => {
     let filtered = data || [];
@@ -90,10 +92,9 @@ export const useFilters = () => {
     allAuthors,
     allGenres,
     selectedAuthors,
-    setSelectedAuthors,
+    toggleAuthorItem,
     selectedGenres,
-    setSelectedGenres,
-    toggleFilterItem,
+    toggleGenreItem,
     ids,
   };
 };
