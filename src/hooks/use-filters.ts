@@ -26,9 +26,7 @@ export const useFilters = (data?: TrackData[]) => {
     [data],
   );
 
-  const handleOpenFilter = useCallback((filter: FilterType) => {
-    setOpenFilter((prev) => (prev === filter ? null : filter));
-
+  const resetOtherFilters = (filter: FilterType) => {
     if (filter !== "author") {
       setSelectedAuthors([]);
     }
@@ -38,6 +36,12 @@ export const useFilters = (data?: TrackData[]) => {
     if (filter !== "date") {
       setSortingOrder(null);
     }
+  };
+
+  const handleOpenFilter = useCallback((filter: FilterType) => {
+    setOpenFilter((prev) => (prev === filter ? null : filter));
+
+    resetOtherFilters(filter);
   }, []);
 
   const toggleAuthorItem = useCallback((name: string) => {

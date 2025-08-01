@@ -47,7 +47,7 @@ export const MainPage = () => {
               <PopoverTrigger asChild>
                 <button className="relative border-1 px-[21px] py-[10px] rounded-full hover:border-[#D9B6FF] hover:text-[#D9B6FF] active:border-[#AD61FF] active:text-[#AD61FF]">
                   исполнителю
-                  {openFilter === "author" && (
+                  {Boolean(selectedAuthors.length) && (
                     <Badge className="absolute -top-2.5 -right-1">
                       {selectedAuthors.length}
                     </Badge>
@@ -62,8 +62,10 @@ export const MainPage = () => {
                         onClick={() => toggleAuthorItem(name)}
                         className={cn(
                           "text-left hover:text-[#D9B6FF] active:text-[#AD61FF]",
-                          selectedAuthors.includes(name) &&
-                            "text-[#B672FF] underline",
+                          {
+                            "text-[#B672FF]": selectedAuthors.includes(name),
+                            underline: selectedAuthors.includes(name),
+                          },
                         )}
                       >
                         {name}
@@ -118,7 +120,7 @@ export const MainPage = () => {
               <PopoverTrigger asChild>
                 <button className="relative border-1 px-[21px] py-[10px] rounded-full hover:border-[#D9B6FF] hover:text-[#D9B6FF] active:border-[#AD61FF] active:text-[#AD61FF]">
                   жанру
-                  {openFilter === "genre" && (
+                  {Boolean(selectedGenres.length) && (
                     <Badge className="absolute -top-2.5 -right-1">
                       {selectedGenres.length}
                     </Badge>
@@ -133,8 +135,10 @@ export const MainPage = () => {
                         onClick={() => toggleGenreItem(name)}
                         className={cn(
                           "text-left hover:text-[#D9B6FF] active:text-[#AD61FF]",
-                          selectedGenres.includes(name) &&
-                            "text-[#B672FF] underline",
+                          {
+                            "text-[#B672FF]": selectedGenres.includes(name),
+                            underline: selectedGenres.includes(name),
+                          },
                         )}
                       >
                         {name}
