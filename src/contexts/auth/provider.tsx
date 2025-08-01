@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { AuthContext } from "./context";
-import { useUser } from "@/hooks/use-user";
+import { useUser } from "@/api/hooks/use-user";
 
 type Props = { children: React.ReactNode };
 
