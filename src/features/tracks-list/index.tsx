@@ -1,13 +1,13 @@
 import { TracksTable } from "@/common/components/tracks-table";
 import { useGetTracks } from "@/api/hooks/use-get-tracks";
-import { useOutletContext } from "react-router";
 import { useMemo } from "react";
 import _ from "lodash";
+import { useSearch } from "@/hooks/use-search";
 
 export const TracksList = ({ ids }: { ids?: string[] }) => {
   const { data, isLoading } = useGetTracks();
 
-  const { search } = useOutletContext<{ search: string }>();
+  const [search] = useSearch();
 
   const baseTracks = useMemo(() => {
     if (!data || !ids) {

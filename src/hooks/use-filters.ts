@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useOutletContext } from "react-router";
+import { useCallback, useMemo, useState } from "react";
 import _ from "lodash";
 import type { TrackData } from "@/api/tracks/get-tracks";
 
@@ -11,10 +10,6 @@ export const useFilters = (data?: TrackData[]) => {
   const [sortingOrder, setSortingOrder] = useState<SortingOrderType>(null);
   const [selectedAuthors, setSelectedAuthors] = useState<string[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-
-  const { setSearch } = useOutletContext<{
-    setSearch: (search: string) => void;
-  }>();
 
   const allAuthors = useMemo(
     () => [...new Set(data?.map((t) => t.author))],
@@ -83,10 +78,6 @@ export const useFilters = (data?: TrackData[]) => {
 
     return filtered.map((track) => track._id);
   }, [data, selectedAuthors, selectedGenres, sortingOrder]);
-
-  useEffect(() => {
-    setSearch("");
-  }, [ids, setSearch]);
 
   return {
     openFilter,

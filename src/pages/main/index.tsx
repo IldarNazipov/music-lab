@@ -63,8 +63,8 @@ export const MainPage = () => {
                         className={cn(
                           "text-left hover:text-[#D9B6FF] active:text-[#AD61FF]",
                           {
-                            "text-[#B672FF]": selectedAuthors.includes(name),
-                            underline: selectedAuthors.includes(name),
+                            "text-[#B672FF] underline":
+                              selectedAuthors.includes(name),
                           },
                         )}
                       >
@@ -136,8 +136,8 @@ export const MainPage = () => {
                         className={cn(
                           "text-left hover:text-[#D9B6FF] active:text-[#AD61FF]",
                           {
-                            "text-[#B672FF]": selectedGenres.includes(name),
-                            underline: selectedGenres.includes(name),
+                            "text-[#B672FF] underline":
+                              selectedGenres.includes(name),
                           },
                         )}
                       >

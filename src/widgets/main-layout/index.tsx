@@ -5,21 +5,19 @@ import { Logo } from "@/common/components/logo";
 import { LogoutIcon } from "@/common/components/logout-icon";
 import { SearchIcon } from "@/common/components/search-icon";
 import { ThemeIcon } from "@/common/components/theme-icon";
+import { useSearch } from "@/hooks/use-search";
 import { cn } from "@/lib/сlassnames";
-import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router";
+import { useState } from "react";
+import { Link, Outlet } from "react-router";
 
 export const MainLayout = () => {
   const [isVisible, setVisible] = useState(false);
-  const [search, setSearch] = useState("");
 
-  const location = useLocation();
-
-  useEffect(() => {
-    setSearch("");
-  }, [location.pathname]);
+  const [search, setSearch] = useSearch();
 
   const { mutate } = useLogOut();
+
+  const handleLogOut = () => mutate();
 
   return (
     <div className="flex relative min-h-screen h-auto">
@@ -59,7 +57,7 @@ export const MainLayout = () => {
           </Link>
           <button
             className="text-left hover:text-[#D9B6FF] active:text-[#AD61FF]"
-            onClick={() => mutate()}
+            onClick={handleLogOut}
           >
             Выйти
           </button>
@@ -88,13 +86,13 @@ export const MainLayout = () => {
           </div>
 
           <div className="w-[250px] mr-[90px] flex justify-end">
-            <button onClick={() => mutate()}>
+            <button onClick={handleLogOut}>
               <LogoutIcon width={41} height={41} />
             </button>
           </div>
         </div>
 
-        <Outlet context={{ search, setSearch }} />
+        <Outlet />
       </div>
     </div>
   );
