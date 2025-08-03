@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router";
 
-export const useSearch = (): [string, (value: string) => void] => {
+export const useSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const value = searchParams.get("search") || "";
