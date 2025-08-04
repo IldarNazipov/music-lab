@@ -17,5 +17,5 @@ export const useSearch = () => {
     setSearchParams(params);
   };
 
-  return [value, setValue];
+  return [value, setValue] as const;
 };
