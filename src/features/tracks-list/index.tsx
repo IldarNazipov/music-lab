@@ -26,13 +26,13 @@ export const TracksList = ({ ids }: { ids?: string[] }) => {
     );
   }, [baseTracks, search]);
 
-  const { setTracks } = useTracksContext();
+  const { setBaseTracks } = useTracksContext();
 
   useEffect(() => {
     if (baseTracks) {
-      setTracks(baseTracks);
+      setBaseTracks(baseTracks);
     }
-  }, [baseTracks, setTracks]);
+  }, [baseTracks, setBaseTracks]);
 
   return <TracksTable tracks={searchedTracks} isLoading={isLoading} />;
 };

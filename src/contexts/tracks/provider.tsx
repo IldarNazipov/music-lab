@@ -5,20 +5,17 @@ import type { TrackData } from "@/api/tracks/get-tracks";
 type Props = { children: React.ReactNode };
 
 export const TracksProvider = ({ children }: Props) => {
-  const [tracks, setTracks] = useState<TrackData[] | null>(null);
+  const [baseTracks, setBaseTracks] = useState<TrackData[] | null>(null);
   const [activeTrackId, setActiveTrackId] = useState<string | null>(null);
-  const [isPlayerVisible, setPlayerVisible] = useState(false);
 
   const value = useMemo(
     () => ({
-      tracks,
-      setTracks,
+      baseTracks,
+      setBaseTracks,
       activeTrackId,
       setActiveTrackId,
-      isPlayerVisible,
-      setPlayerVisible,
     }),
-    [activeTrackId, tracks, isPlayerVisible],
+    [activeTrackId, baseTracks],
   );
 
   return (

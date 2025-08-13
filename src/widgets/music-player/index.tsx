@@ -10,35 +10,56 @@ import { RepeatIcon } from "@/common/components/repeat-icon";
 import { ShuffleIcon } from "@/common/components/shuffle-icon";
 import { VolumeIcon } from "@/common/components/volume-icon";
 import { useTracksContext } from "@/contexts/tracks/use-tracks-context";
+import { usePlayerProgressBar } from "@/hooks/use-player-progress-bar";
+import { useResetPlayer } from "@/hooks/use-reset-player";
+import { usePlayerVolume } from "@/hooks/use-player-volume";
+import { useStartPlayer } from "@/hooks/use-start-player";
 import { cn } from "@/lib/сlassnames";
+import _ from "lodash";
 import * as Slider from "@radix-ui/react-slider";
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router";
+import type { TrackData } from "@/api/tracks/get-tracks";
 
 export const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const [isPlayerVisible, setPlayerVisible] = useState(false);
   const [isPlaying, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isRepeat, setRepeat] = useState(false);
   const [isShuffle, setShuffle] = useState(false);
+  const [tracksArray, setTracksArray] = useState<TrackData[]>([]);
 
-  const location = useLocation();
+  const { activeTrackId, setActiveTrackId, baseTracks } = useTracksContext();
 
-  const {
-    activeTrackId,
-    setActiveTrackId,
-    isPlayerVisible,
-    setPlayerVisible,
-    tracks,
-  } = useTracksContext();
+  useEffect(() => {
+    if (activeTrackId !== null) {
+      setPlayerVisible(true);
+    } else {
+      setPlayerVisible(false);
+    }
+  }, [activeTrackId, setPlayerVisible]);
 
-  const currentTrackIndex = tracks?.findIndex(
+  useEffect(() => {
+    if (!baseTracks) {
+      return;
+    }
+
+    if (isShuffle) {
+      setTracksArray(_.shuffle(baseTracks));
+    } else {
+      setTracksArray(baseTracks);
+    }
+  }, [baseTracks, isShuffle]);
+
+  const currentTrackIndex = tracksArray.findIndex(
     (track) => track._id === activeTrackId,
   );
-  const currentTrack = tracks?.find((track) => track._id === activeTrackId);
+
+  const currentTrack =
+    currentTrackIndex !== -1 ? tracksArray[currentTrackIndex] : null;
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -50,41 +71,27 @@ export const MusicPlayer = () => {
     }
   };
 
-  const handleNext = () => {
+  const handleNextTrack = () => {
     if (
-      !tracks ||
+      !tracksArray ||
       currentTrackIndex === -1 ||
       currentTrackIndex === undefined
     ) {
       return;
     }
 
-    if (isShuffle) {
-      const randomIndex = Math.floor(Math.random() * (tracks.length - 1));
-      if (randomIndex === currentTrackIndex) {
-        setActiveTrackId(tracks[randomIndex + 1]._id);
-      } else {
-        setActiveTrackId(tracks[randomIndex]._id);
-      }
-      return;
-    }
-
     const nextIndex = currentTrackIndex + 1;
 
-    if (nextIndex >= tracks.length) {
-      audioRef.current?.pause();
-      setActiveTrackId(null);
-      setPlaying(false);
-      setCurrentTime(0);
-      setPlayerVisible(false);
+    if (nextIndex >= tracksArray.length) {
+      setActiveTrackId(tracksArray[0]._id);
     } else {
-      setActiveTrackId(tracks[nextIndex]._id);
+      setActiveTrackId(tracksArray[nextIndex]._id);
     }
   };
 
-  const handlePrev = () => {
+  const handlePrevTrack = () => {
     if (
-      !tracks ||
+      !tracksArray ||
       currentTrackIndex === -1 ||
       currentTrackIndex === undefined
     ) {
@@ -106,9 +113,8 @@ export const MusicPlayer = () => {
     if (audio.currentTime > 2 || currentTrackIndex === 0) {
       audio.currentTime = 0;
       audio.play();
-      return;
     } else {
-      setActiveTrackId(tracks[currentTrackIndex - 1]._id);
+      setActiveTrackId(tracksArray[currentTrackIndex - 1]._id);
     }
   };
 
@@ -123,81 +129,41 @@ export const MusicPlayer = () => {
     setCurrentTime(newTime);
   };
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
+  const handleTrackEnd = () => {
+    if (isRepeat) {
+      audioRef.current!.currentTime = 0;
+      audioRef.current!.play();
+    } else {
+      handleNextTrack();
     }
-  }, [volume]);
+  };
 
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) {
-      return;
-    }
+  usePlayerProgressBar(audioRef, setCurrentTime, setDuration, isPlayerVisible);
 
-    const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
-    const handleLoadedMetadata = () => setDuration(audio.duration);
+  usePlayerVolume(audioRef, volume);
 
-    audio.addEventListener("timeupdate", handleTimeUpdate);
-    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+  useStartPlayer(
+    audioRef,
+    currentTrackIndex,
+    tracksArray,
+    setPlaying,
+    isPlayerVisible,
+  );
 
-    return () => {
-      audio.removeEventListener("timeupdate", handleTimeUpdate);
-      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
-    };
-  }, [isPlayerVisible]);
-
-  useEffect(() => {
-    if (activeTrackId !== null) {
-      setPlayerVisible(true);
-    }
-  }, [activeTrackId, setPlayerVisible]);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio || !tracks || currentTrackIndex === undefined) {
-      return;
-    }
-
-    if (isPlayerVisible) {
-      audio.src = tracks[currentTrackIndex].trackUrl;
-      audio
-        .play()
-        .then(() => setPlaying(true))
-        .catch(() => setPlaying(false));
-    }
-  }, [currentTrackIndex, tracks, isPlayerVisible]);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (audio) {
-      audio.pause();
-      audio.currentTime = 0;
-      audio.src = "";
-    }
-    setActiveTrackId(null);
-    setPlayerVisible(false);
-    setPlaying(false);
-    setCurrentTime(0);
-    setDuration(0);
-  }, [tracks, location.pathname, setActiveTrackId, setPlayerVisible]);
+  useResetPlayer(
+    audioRef,
+    setActiveTrackId,
+    setPlaying,
+    setCurrentTime,
+    setDuration,
+    baseTracks,
+  );
 
   return (
     <>
+      <audio ref={audioRef} preload="none" onEnded={handleTrackEnd} />
       {isPlayerVisible && (
         <div className="w-full h-[75px] bg-[#1C1C1C] fixed bottom-0 left-0">
-          <audio
-            ref={audioRef}
-            preload="none"
-            onEnded={() => {
-              if (isRepeat) {
-                audioRef.current!.currentTime = 0;
-                audioRef.current!.play();
-              } else {
-                handleNext();
-              }
-            }}
-          />
           <div className="flex items-center w-full">
             <Slider.Root
               className="group relative flex flex-1 items-center cursor-pointer"
@@ -213,8 +179,8 @@ export const MusicPlayer = () => {
             </Slider.Root>
           </div>
           <div className="h-[70px] items-center flex justify-between">
-            <div className="gap-[33px] ml-[33px] flex">
-              <button onClick={handlePrev}>
+            <div className="gap-[33px] ml-[33px] flex items-center">
+              <button onClick={handlePrevTrack}>
                 <PrevIcon width={16} height={14} />
               </button>
               <button onClick={handlePlayPause}>
@@ -224,7 +190,7 @@ export const MusicPlayer = () => {
                   <PlayIcon width={16} height={20} />
                 )}
               </button>
-              <button onClick={handleNext}>
+              <button onClick={handleNextTrack}>
                 <NextIcon width={17} height={14} />
               </button>
               <button onClick={() => setRepeat(!isRepeat)}>
@@ -265,14 +231,13 @@ export const MusicPlayer = () => {
               )}
             </div>
 
-            <div className="flex items-center mr-[65px]">
-              <VolumeIcon width={15} height={18} className="mr-[17px]" />
+            <div className="flex items-center mr-[66px]">
+              <VolumeIcon width={15} height={18} className="mr-[16px]" />
               <Slider.Root
                 className="relative flex items-center w-[109px] h-5 cursor-pointer"
                 min={0}
                 max={1}
-                step={0.01}
-                defaultValue={[0.5]}
+                step={0.1}
                 value={[volume]}
                 onValueChange={([newVolume]) => setVolume(newVolume)}
               >
