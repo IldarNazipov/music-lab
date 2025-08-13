@@ -37,7 +37,7 @@ export const MainPage = () => {
           Треки
         </Title>
 
-        <div className="flex items-center mb-[51px]">
+        <div className="flex items-center mb-[51px] whitespace-nowrap">
           <div className="mr-[12px]">Искать по:</div>
           <div className="flex gap-[10px]">
             <Popover

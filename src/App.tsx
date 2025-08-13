@@ -10,31 +10,34 @@ import { MainLayout } from "./widgets/main-layout";
 import { MainPage } from "./pages/main/index.js";
 import { MyTracksPage } from "./pages/my-tracks/index.js";
 import { PlaylistPage } from "./pages/playlist/index.js";
+import { TracksProvider } from "./contexts/tracks/provider.js";
 
 export function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route element={<PublicRoute />}>
-            <Route path="/login" element={<LogInPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-          </Route>
+        <TracksProvider>
+          <Routes>
+            <Route element={<PublicRoute />}>
+              <Route path="/login" element={<LogInPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+            </Route>
 
-          <Route
-            element={
-              <PrivateRoute>
-                <MainLayout />
-              </PrivateRoute>
-            }
-          >
-            <Route path="/" element={<MainPage />} />
-            <Route path="/mytracks" element={<MyTracksPage />} />
-            <Route path="/playlists/:id" element={<PlaylistPage />} />
-          </Route>
+            <Route
+              element={
+                <PrivateRoute>
+                  <MainLayout />
+                </PrivateRoute>
+              }
+            >
+              <Route path="/" element={<MainPage />} />
+              <Route path="/mytracks" element={<MyTracksPage />} />
+              <Route path="/playlists/:id" element={<PlaylistPage />} />
+            </Route>
 
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </TracksProvider>
       </AuthProvider>
       <ToastContainer />
     </BrowserRouter>

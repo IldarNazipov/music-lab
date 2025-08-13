@@ -10,8 +10,8 @@ export const TracksTable = ({
   tracks?: TrackData[];
   isLoading: boolean;
 }) => (
-  <ul className="flex flex-col text-white p-[10px]">
-    <li className="grid grid-cols-[6fr_4fr_3fr_70px] text-sm text-[#4E4E4E] uppercase mb-[24px] items-center">
+  <ul className="flex flex-col text-white p-[10px] gap-[12px] mb-[73px]">
+    <li className="grid grid-cols-[6fr_4fr_3fr_70px] text-sm text-[#4E4E4E] uppercase mb-[12px] items-center">
       <div>трек</div>
       <div>исполнитель</div>
       <div>альбом</div>

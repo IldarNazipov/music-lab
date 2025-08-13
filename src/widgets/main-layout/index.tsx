@@ -9,9 +9,10 @@ import { useSearch } from "@/hooks/use-search";
 import { cn } from "@/lib/сlassnames";
 import { useState } from "react";
 import { Link, Outlet } from "react-router";
+import { MusicPlayer } from "../music-player";
 
 export const MainLayout = () => {
-  const [isVisible, setVisible] = useState(false);
+  const [isNavVisible, setNavVisible] = useState(false);
 
   const [search, setSearch] = useSearch();
 
@@ -23,7 +24,7 @@ export const MainLayout = () => {
     <div className="flex relative min-h-screen h-auto">
       <div
         className={cn(
-          { "bg-[#1C1C1C]": isVisible },
+          { "bg-[#1C1C1C]": isNavVisible },
           "min-w-[244px] pt-[23px] pl-[35px]",
         )}
       >
@@ -32,7 +33,7 @@ export const MainLayout = () => {
         </Link>
 
         <button
-          onClick={() => setVisible(!isVisible)}
+          onClick={() => setNavVisible(!isNavVisible)}
           aria-label="Открыть меню"
         >
           <BurgerIcon width={20} height={15} className="mb-[35px]" />
@@ -41,7 +42,7 @@ export const MainLayout = () => {
         <div
           className={cn(
             {
-              invisible: !isVisible,
+              invisible: !isNavVisible,
             },
             "text-white flex flex-col gap-[26px]",
           )}
@@ -94,6 +95,7 @@ export const MainLayout = () => {
 
         <Outlet />
       </div>
+      <MusicPlayer />
     </div>
   );
 };
