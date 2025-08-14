@@ -7,8 +7,8 @@ export default [
     genre: "Klezmer",
     durationInSeconds: 386,
     album: "Playa Saturno",
-    previewUrl: "http://localhost:3000/media/Ryan_Craig_Martin_-_Majesty.mp3",
-    trackUrl: "http://localhost:3000/media/Ryan_Craig_Martin_-_Majesty.mp3",
+    previewUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
+    trackUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
   },
   {
     _id: "6861a103a7ce67e0dab40566",
@@ -18,8 +18,8 @@ export default [
     genre: "Emo",
     durationInSeconds: 110,
     album: "Ultra 2021",
-    previewUrl: "http://localhost:3000/media/Brian_Holtz_-_Rhythm_Beds.mp3",
-    trackUrl: "http://localhost:3000/media/Brian_Holtz_-_Rhythm_Beds.mp3",
+    previewUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
+    trackUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
   },
   {
     _id: "6861a103a7ce67e0dab40567",
@@ -29,8 +29,8 @@ export default [
     genre: "Teen Pop",
     durationInSeconds: 69,
     album: "Live On Red Barn Radio I & II",
-    previewUrl: "http://localhost:3000/media/Voisin_-_Insire.mp3",
-    trackUrl: "http://localhost:3000/media/Voisin_-_Insire.mp3",
+    previewUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
+    trackUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
   },
   {
     _id: "68998d15455bb1747f561610",
@@ -40,9 +40,8 @@ export default [
     genre: "Traditional",
     durationInSeconds: 141,
     album: "Future History",
-    previewUrl:
-      "http://localhost:3000/media/Frank_Schroter_-_Open_Sea_epic.mp3",
-    trackUrl: "http://localhost:3000/media/Frank_Schroter_-_Open_Sea_epic.mp3",
+    previewUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
+    trackUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
   },
   {
     _id: "68998d15455bb1747f561611",
@@ -52,8 +51,8 @@ export default [
     genre: "Electronica",
     durationInSeconds: 264,
     album: "Thank Me Later",
-    previewUrl: "http://localhost:3000/media/Bobby_Marleni_-_Dropin.mp3",
-    trackUrl: "http://localhost:3000/media/Bobby_Marleni_-_Dropin.mp3",
+    previewUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
+    trackUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
   },
   {
     _id: "68998d15455bb1747f561612",
@@ -63,7 +62,7 @@ export default [
     genre: "Medieval",
     durationInSeconds: 120,
     album: "The Rise And Fall Of Ziggy Stardust And The Spiders From Mars",
-    previewUrl: "http://localhost:3000/media/Musiclfiles_-_True_Summer.mp3",
-    trackUrl: "http://localhost:3000/media/Musiclfiles_-_True_Summer.mp3",
+    previewUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
+    trackUrl: "tests/main-page/mocks/media/5-seconds-of-silence.mp3",
   },
 ];

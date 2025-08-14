@@ -110,7 +110,7 @@ export const MusicPlayer = () => {
       return;
     }
 
-    if (audio.currentTime > 2 || currentTrackIndex === 0) {
+    if (audio.currentTime > 4 || currentTrackIndex === 0) {
       audio.currentTime = 0;
       audio.play();
     } else {

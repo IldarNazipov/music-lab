@@ -257,24 +257,7 @@ test.describe("Фича: аудио плеер", () => {
     await page.getByText("Mule Train").click();
     await page.getByTestId("repeat").click();
 
-    await page.evaluate(async () => {
-      const audio = document.querySelector("audio");
-      if (!audio) {
-        return;
-      }
-
-      await new Promise<void>((resolve) => {
-        if (Number.isFinite(audio.duration)) {
-          resolve();
-        } else {
-          audio.addEventListener("loadedmetadata", () => resolve(), {
-            once: true,
-          });
-        }
-      });
-
-      audio.currentTime = audio.duration - 0.1;
-    });
+    await page.waitForTimeout(6000);
 
     await expect(page.getByTestId("playingTrack")).toHaveText("Mule Train");
   });
