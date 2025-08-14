@@ -163,7 +163,10 @@ export const MusicPlayer = () => {
     <>
       <audio ref={audioRef} preload="none" onEnded={handleTrackEnd} />
       {isPlayerVisible && (
-        <div className="w-full h-[75px] bg-[#1C1C1C] fixed bottom-0 left-0">
+        <div
+          className="w-full h-[75px] bg-[#1C1C1C] fixed bottom-0 left-0"
+          data-testid="player"
+        >
           <div className="flex items-center w-full">
             <Slider.Root
               className="group relative flex flex-1 items-center cursor-pointer"
@@ -180,27 +183,30 @@ export const MusicPlayer = () => {
           </div>
           <div className="h-[70px] items-center flex justify-between">
             <div className="gap-[33px] ml-[33px] flex items-center">
-              <button onClick={handlePrevTrack}>
+              <button onClick={handlePrevTrack} data-testid="prev">
                 <PrevIcon width={16} height={14} />
               </button>
               <button onClick={handlePlayPause}>
                 {isPlaying ? (
-                  <PauseIcon width={16} height={20} />
+                  <PauseIcon width={16} height={20} data-testid="pause" />
                 ) : (
                   <PlayIcon width={16} height={20} />
                 )}
               </button>
-              <button onClick={handleNextTrack}>
+              <button onClick={handleNextTrack} data-testid="next">
                 <NextIcon width={17} height={14} />
               </button>
-              <button onClick={() => setRepeat(!isRepeat)}>
+              <button onClick={() => setRepeat(!isRepeat)} data-testid="repeat">
                 <RepeatIcon
                   width={20}
                   height={18}
                   className={cn({ "text-[#AD61FF]": isRepeat })}
                 />
               </button>
-              <button onClick={() => setShuffle(!isShuffle)}>
+              <button
+                onClick={() => setShuffle(!isShuffle)}
+                data-testid="shuffle"
+              >
                 <ShuffleIcon
                   width={20}
                   height={18}
@@ -215,7 +221,12 @@ export const MusicPlayer = () => {
                     className="ml-[17px] mr-[17px] shrink-0"
                   />
                   <div className="mr-[31px]">
-                    <div className="truncate mb-[6px]">{currentTrack.name}</div>
+                    <div
+                      className="truncate mb-[6px]"
+                      data-testid="playingTrack"
+                    >
+                      {currentTrack.name}
+                    </div>
                     <div className="text-sm">{currentTrack.author}</div>
                   </div>
                   <button
