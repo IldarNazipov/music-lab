@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import currentUser from "./mocks/current-user";
 
 test.describe("Фича: авторизация пользователя", () => {

@@ -1,5 +1,9 @@
-import { addToFavorites } from "@/api/tracks/add-favorite";
-import { deleteFromFavorites } from "@/api/tracks/delete-favorite";
+import * as Slider from "@radix-ui/react-slider";
+import _ from "lodash";
+import { useEffect, useRef, useState } from "react";
+
+import { useFavoriteTrack } from "@/api/hooks/use-favorite-track";
+import type { TrackData } from "@/api/tracks/get-tracks";
 import { CoverIcon } from "@/common/components/cover-icon";
 import { FavoriteIcon } from "@/common/components/favorite-icon";
 import { NextIcon } from "@/common/components/next-icon";
@@ -10,15 +14,11 @@ import { RepeatIcon } from "@/common/components/repeat-icon";
 import { ShuffleIcon } from "@/common/components/shuffle-icon";
 import { VolumeIcon } from "@/common/components/volume-icon";
 import { useTracksContext } from "@/contexts/tracks/use-tracks-context";
-import { usePlayerProgressBar } from "@/hooks/use-player-progress-bar";
-import { useResetPlayer } from "@/hooks/use-reset-player";
-import { usePlayerVolume } from "@/hooks/use-player-volume";
-import { useStartPlayer } from "@/hooks/use-start-player";
 import { cn } from "@/lib/сlassnames";
-import _ from "lodash";
-import * as Slider from "@radix-ui/react-slider";
-import { useEffect, useRef, useState } from "react";
-import type { TrackData } from "@/api/tracks/get-tracks";
+import { usePlayerProgressBar } from "@/widgets/music-player/hooks/use-player-progress-bar";
+import { usePlayerVolume } from "@/widgets/music-player/hooks/use-player-volume";
+import { useResetPlayer } from "@/widgets/music-player/hooks/use-reset-player";
+import { useStartPlayer } from "@/widgets/music-player/hooks/use-start-player";
 
 export const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -33,6 +33,7 @@ export const MusicPlayer = () => {
   const [tracksArray, setTracksArray] = useState<TrackData[]>([]);
 
   const { activeTrackId, setActiveTrackId, baseTracks } = useTracksContext();
+  const { toggleFavorite, isFavorite } = useFavoriteTrack(activeTrackId);
 
   useEffect(() => {
     if (activeTrackId !== null) {
@@ -103,16 +104,10 @@ export const MusicPlayer = () => {
       return;
     }
 
-    if (audio.paused) {
-      audio.currentTime = 0;
-      audio.play();
-      setPlaying(true);
-      return;
-    }
-
     if (audio.currentTime > 4 || currentTrackIndex === 0) {
       audio.currentTime = 0;
       audio.play();
+      setPlaying(true);
     } else {
       setActiveTrackId(tracksArray[currentTrackIndex - 1]._id);
     }
@@ -138,129 +133,127 @@ export const MusicPlayer = () => {
     }
   };
 
-  usePlayerProgressBar(audioRef, setCurrentTime, setDuration, isPlayerVisible);
+  usePlayerProgressBar({
+    audioRef,
+    setCurrentTime,
+    setDuration,
+    isPlayerVisible,
+  });
 
-  usePlayerVolume(audioRef, volume);
+  usePlayerVolume({ audioRef, volume });
 
-  useStartPlayer(
+  useStartPlayer({
     audioRef,
     currentTrackIndex,
     tracksArray,
     setPlaying,
     isPlayerVisible,
-  );
+  });
 
-  useResetPlayer(
+  useResetPlayer({
     audioRef,
     setActiveTrackId,
     setPlaying,
     setCurrentTime,
     setDuration,
     baseTracks,
-  );
+  });
+
+  if (!isPlayerVisible) {
+    return <audio ref={audioRef} preload="none" />;
+  }
 
   return (
     <>
       <audio ref={audioRef} preload="none" onEnded={handleTrackEnd} />
-      {isPlayerVisible && (
-        <div
-          className="w-full h-[75px] bg-[#1C1C1C] fixed bottom-0 left-0"
-          data-testid="player"
-        >
-          <div className="flex items-center w-full">
-            <Slider.Root
-              className="group relative flex flex-1 items-center cursor-pointer"
-              min={0}
-              max={duration}
-              value={[currentTime]}
-              onValueChange={handleSeek}
+      <div
+        className="w-full h-[75px] bg-[#1C1C1C] fixed bottom-0 left-0"
+        data-testid="player"
+      >
+        <div className="flex items-center w-full">
+          <Slider.Root
+            className="group relative flex flex-1 items-center cursor-pointer"
+            min={0}
+            max={duration}
+            value={[currentTime]}
+            onValueChange={handleSeek}
+          >
+            <Slider.Track className="relative h-[5px] bg-[#797979] w-full">
+              <Slider.Range className="absolute h-full bg-white" />
+            </Slider.Track>
+            <Slider.Thumb className="h-[10px] rounded-full border-2 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+          </Slider.Root>
+        </div>
+        <div className="h-[70px] items-center flex justify-between">
+          <div className="gap-[33px] ml-[33px] flex items-center">
+            <button onClick={handlePrevTrack} data-testid="prev">
+              <PrevIcon width={16} height={14} />
+            </button>
+            <button onClick={handlePlayPause}>
+              {isPlaying ? (
+                <PauseIcon width={16} height={20} data-testid="pause" />
+              ) : (
+                <PlayIcon width={16} height={20} />
+              )}
+            </button>
+            <button onClick={handleNextTrack} data-testid="next">
+              <NextIcon width={17} height={14} />
+            </button>
+            <button onClick={() => setRepeat(!isRepeat)} data-testid="repeat">
+              <RepeatIcon
+                width={20}
+                height={18}
+                className={cn({ "text-[#AD61FF]": isRepeat })}
+              />
+            </button>
+            <button
+              onClick={() => setShuffle(!isShuffle)}
+              data-testid="shuffle"
             >
-              <Slider.Track className="relative h-[5px] bg-[#797979] w-full">
+              <ShuffleIcon
+                width={20}
+                height={18}
+                className={cn({ "text-[#AD61FF]": isShuffle })}
+              />
+            </button>
+            {currentTrack && (
+              <div className="flex items-center text-white">
+                <CoverIcon
+                  width={52}
+                  height={52}
+                  className="ml-[17px] mr-[17px] shrink-0"
+                />
+                <div className="mr-[31px]">
+                  <div className="truncate mb-[6px]" data-testid="playingTrack">
+                    {currentTrack.name}
+                  </div>
+                  <div className="text-sm">{currentTrack.author}</div>
+                </div>
+                <button className="mr-[38px]" onClick={toggleFavorite}>
+                  <FavoriteIcon width={16} height={15} isActive={isFavorite} />
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center mr-[66px]">
+            <VolumeIcon width={15} height={18} className="mr-[16px]" />
+            <Slider.Root
+              className="relative flex items-center w-[109px] h-5 cursor-pointer"
+              min={0}
+              max={1}
+              step={0.1}
+              value={[volume]}
+              onValueChange={([newVolume]) => setVolume(newVolume)}
+            >
+              <Slider.Track className="relative h-[2px] bg-[#797979] w-full">
                 <Slider.Range className="absolute h-full bg-white" />
               </Slider.Track>
-              <Slider.Thumb className="h-[10px] rounded-full border-2 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              <Slider.Thumb className="block w-[12px] h-[12px] bg-[#1C1C1C] rounded-full border-2 border-white focus:outline-none focus:ring-0 focus-visible:outline-none" />
             </Slider.Root>
           </div>
-          <div className="h-[70px] items-center flex justify-between">
-            <div className="gap-[33px] ml-[33px] flex items-center">
-              <button onClick={handlePrevTrack} data-testid="prev">
-                <PrevIcon width={16} height={14} />
-              </button>
-              <button onClick={handlePlayPause}>
-                {isPlaying ? (
-                  <PauseIcon width={16} height={20} data-testid="pause" />
-                ) : (
-                  <PlayIcon width={16} height={20} />
-                )}
-              </button>
-              <button onClick={handleNextTrack} data-testid="next">
-                <NextIcon width={17} height={14} />
-              </button>
-              <button onClick={() => setRepeat(!isRepeat)} data-testid="repeat">
-                <RepeatIcon
-                  width={20}
-                  height={18}
-                  className={cn({ "text-[#AD61FF]": isRepeat })}
-                />
-              </button>
-              <button
-                onClick={() => setShuffle(!isShuffle)}
-                data-testid="shuffle"
-              >
-                <ShuffleIcon
-                  width={20}
-                  height={18}
-                  className={cn({ "text-[#AD61FF]": isShuffle })}
-                />
-              </button>
-              {currentTrack && (
-                <div className="flex items-center text-white">
-                  <CoverIcon
-                    width={52}
-                    height={52}
-                    className="ml-[17px] mr-[17px] shrink-0"
-                  />
-                  <div className="mr-[31px]">
-                    <div
-                      className="truncate mb-[6px]"
-                      data-testid="playingTrack"
-                    >
-                      {currentTrack.name}
-                    </div>
-                    <div className="text-sm">{currentTrack.author}</div>
-                  </div>
-                  <button
-                    className="mr-[38px]"
-                    onClick={() => addToFavorites(currentTrack._id)}
-                  >
-                    <FavoriteIcon width={16} height={15} isFavorite={false} />
-                  </button>
-                  <button onClick={() => deleteFromFavorites(currentTrack._id)}>
-                    <FavoriteIcon width={16} height={15} isFavorite={true} />
-                  </button>
-                </div>
-              )}
-            </div>
-
-            <div className="flex items-center mr-[66px]">
-              <VolumeIcon width={15} height={18} className="mr-[16px]" />
-              <Slider.Root
-                className="relative flex items-center w-[109px] h-5 cursor-pointer"
-                min={0}
-                max={1}
-                step={0.1}
-                value={[volume]}
-                onValueChange={([newVolume]) => setVolume(newVolume)}
-              >
-                <Slider.Track className="relative h-[2px] bg-[#797979] w-full">
-                  <Slider.Range className="absolute h-full bg-white" />
-                </Slider.Track>
-                <Slider.Thumb className="block w-[12px] h-[12px] bg-[#1C1C1C] rounded-full border-2 border-white focus:outline-none focus:ring-0 focus-visible:outline-none" />
-              </Slider.Root>
-            </div>
-          </div>
         </div>
-      )}
+      </div>
     </>
   );
 };

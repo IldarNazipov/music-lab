@@ -1,11 +1,18 @@
 import { useEffect } from "react";
 
-export const usePlayerProgressBar = (
-  audioRef: React.RefObject<HTMLAudioElement | null>,
-  setCurrentTime: (currentTime: number) => void,
-  setDuration: (duration: number) => void,
-  isPlayerVisible: boolean,
-) => {
+type UsePlayerProgressBarProps = {
+  audioRef: React.RefObject<HTMLAudioElement | null>;
+  setCurrentTime: (currentTime: number) => void;
+  setDuration: (duration: number) => void;
+  isPlayerVisible: boolean;
+};
+
+export const usePlayerProgressBar = ({
+  audioRef,
+  setCurrentTime,
+  setDuration,
+  isPlayerVisible,
+}: UsePlayerProgressBarProps) => {
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) {

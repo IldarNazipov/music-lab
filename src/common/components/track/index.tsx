@@ -1,30 +1,15 @@
-import { addToFavorites } from "@/api/tracks/add-favorite";
+import { useFavoriteTrack } from "@/api/hooks/use-favorite-track";
 import type { TrackData } from "@/api/tracks/get-tracks";
+import { useTracksContext } from "@/contexts/tracks/use-tracks-context";
+import { formatDuration } from "@/lib/format-duration";
+import { cn } from "@/lib/сlassnames";
+
 import { CoverIcon } from "../cover-icon";
 import { FavoriteIcon } from "../favorite-icon";
-import { formatDuration } from "@/lib/format-duration";
-import { useTracksContext } from "@/contexts/tracks/use-tracks-context";
-import { useUser } from "@/api/hooks/use-user";
-import { deleteFromFavorites } from "@/api/tracks/delete-favorite";
-import { useState } from "react";
-import { cn } from "@/lib/сlassnames";
 
 export const TrackItem = ({ track }: { track: TrackData }) => {
   const { activeTrackId, setActiveTrackId } = useTracksContext();
-  const { data } = useUser();
-
-  const favoriteIds = data?.favorites || [];
-  const [isFavorite, setFavorite] = useState(favoriteIds.includes(track._id));
-
-  const handleFavoriteClick = async (id: string) => {
-    setFavorite(!isFavorite);
-
-    if (!favoriteIds.includes(id)) {
-      await addToFavorites(id);
-    } else {
-      await deleteFromFavorites(id);
-    }
-  };
+  const { isFavorite, toggleFavorite } = useFavoriteTrack(track._id);
 
   return (
     <li
@@ -50,10 +35,10 @@ export const TrackItem = ({ track }: { track: TrackData }) => {
           className="w-[16px] h-[14px] bg-center mr-[12px]"
           onClick={(e) => {
             e.stopPropagation();
-            handleFavoriteClick(track._id);
+            toggleFavorite();
           }}
         >
-          <FavoriteIcon width={16} height={15} isFavorite={isFavorite} />
+          <FavoriteIcon width={16} height={15} isActive={isFavorite} />
         </button>
 
         <div className="text-[#4E4E4E]">
