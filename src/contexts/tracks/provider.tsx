@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
-import { TracksContext } from "./context";
+
 import type { TrackData } from "@/api/tracks/get-tracks";
+
+import { TracksContext } from "./context";
 
 type Props = { children: React.ReactNode };
 

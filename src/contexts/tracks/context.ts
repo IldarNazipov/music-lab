@@ -1,5 +1,6 @@
-import type { TrackData } from "@/api/tracks/get-tracks";
 import { createContext } from "react";
+
+import type { TrackData } from "@/api/tracks/get-tracks";
 
 type TracksContextType = {
   baseTracks: TrackData[] | null;

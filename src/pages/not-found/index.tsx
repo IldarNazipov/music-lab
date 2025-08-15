@@ -1,7 +1,8 @@
+import { Link } from "react-router";
+
 import { Button } from "@/common/components/button";
 import { CryingIcon } from "@/common/components/crying-icon";
 import { Title } from "@/common/components/title";
-import { Link } from "react-router";
 
 export const NotFoundPage = () => (
   <div className="flex flex-col h-screen items-center justify-center">

@@ -1,9 +1,10 @@
-import { TracksTable } from "@/common/components/tracks-table";
-import { useGetTracks } from "@/api/hooks/use-get-tracks";
-import { useEffect, useMemo } from "react";
 import _ from "lodash";
-import { useSearch } from "@/hooks/use-search";
+import { useEffect, useMemo } from "react";
+
+import { useGetTracks } from "@/api/hooks/use-get-tracks";
+import { TracksTable } from "@/common/components/tracks-table";
 import { useTracksContext } from "@/contexts/tracks/use-tracks-context";
+import { useSearch } from "@/hooks/use-search";
 
 export const TracksList = ({ ids }: { ids?: string[] }) => {
   const { data, isLoading } = useGetTracks();

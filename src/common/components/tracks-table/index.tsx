@@ -1,4 +1,5 @@
 import type { TrackData } from "@/api/tracks/get-tracks";
+
 import { DurationIcon } from "../duration-icon";
 import { SkeletonTracks } from "../skeleton-tracks";
 import { TrackItem } from "../track";

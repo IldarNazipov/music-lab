@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Link, Outlet } from "react-router";
+
 import { useLogOut } from "@/api/hooks/use-logout";
 import { BurgerIcon } from "@/common/components/burger-icon";
 import { Input } from "@/common/components/input";
@@ -7,8 +10,7 @@ import { SearchIcon } from "@/common/components/search-icon";
 import { ThemeIcon } from "@/common/components/theme-icon";
 import { useSearch } from "@/hooks/use-search";
 import { cn } from "@/lib/сlassnames";
-import { useState } from "react";
-import { Link, Outlet } from "react-router";
+
 import { MusicPlayer } from "../music-player";
 
 export const MainLayout = () => {

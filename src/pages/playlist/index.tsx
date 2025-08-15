@@ -1,6 +1,7 @@
-import { Title } from "@/common/components/title";
-import { useGetPlaylists } from "@/api/hooks/use-get-playlists";
 import { useParams } from "react-router";
+
+import { useGetPlaylists } from "@/api/hooks/use-get-playlists";
+import { Title } from "@/common/components/title";
 import { TracksList } from "@/features/tracks-list";
 
 export const PlaylistPage = () => {

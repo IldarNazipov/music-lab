@@ -1,5 +1,6 @@
-import type { PlaylistData } from "@/api/playlists/get-playlists";
 import { Link } from "react-router";
+
+import type { PlaylistData } from "@/api/playlists/get-playlists";
 
 export const Playlist = ({
   playlist,

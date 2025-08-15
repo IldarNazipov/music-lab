@@ -4,9 +4,9 @@ export const FavoriteIcon = ({
   className,
   width,
   height,
-  isFavorite,
+  isActive,
   ...props
-}: React.ComponentProps<"svg"> & { isFavorite: boolean }) => (
+}: React.ComponentProps<"svg"> & { isActive: boolean | undefined }) => (
   <svg
     width={width}
     height={height}
@@ -24,7 +24,7 @@ export const FavoriteIcon = ({
       d="M8.46213 3.21275H8.4837C9.41559 2.39879 11.8747 1.1228 14.0749 2.72437C17.4295 5.16624 14.3642 10.457 8.4837 13.957H8.46213M8.46219 3.21275H8.44062C7.50873 2.39879 5.04961 1.1228 2.84942 2.72437C-0.505144 5.16624 2.56013 10.457 8.44062 13.957H8.46219"
       stroke="currentColor"
     />
-    {isFavorite && (
+    {isActive && (
       <path
         d="M0 1L15 13"
         stroke="currentColor"
