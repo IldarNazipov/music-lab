@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { TrackData } from "@/api/tracks/get-tracks";
 
-type UseStartPlayerProps = {
+type Props = {
   audioRef: React.RefObject<HTMLAudioElement | null>;
   currentTrackIndex: number | undefined;
   tracksArray: TrackData[] | null;
@@ -16,9 +16,10 @@ export const useStartPlayer = ({
   tracksArray,
   setPlaying,
   isPlayerVisible,
-}: UseStartPlayerProps) => {
+}: Props) => {
   useEffect(() => {
     const audio = audioRef.current;
+
     if (
       !audio ||
       !tracksArray ||

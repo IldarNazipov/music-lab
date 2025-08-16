@@ -21,14 +21,14 @@ export const TrackItem = ({ track }: { track: TrackData }) => {
     >
       <div className="flex items-center mr-[12px] min-w-0">
         <CoverIcon width={52} height={52} className="shrink-0 mr-[17px]" />
-        <div data-testid="track-name" className="truncate">
+        <p data-testid="track-name" className="truncate">
           {track.name}
-        </div>
+        </p>
       </div>
 
-      <div className="truncate">{track.author}</div>
+      <p className="truncate">{track.author}</p>
 
-      <div className="text-[#4E4E4E] truncate">{track.album}</div>
+      <p className="text-[#4E4E4E] truncate">{track.album}</p>
 
       <div className="flex items-center">
         <button
@@ -41,9 +41,9 @@ export const TrackItem = ({ track }: { track: TrackData }) => {
           <FavoriteIcon width={16} height={15} isActive={isFavorite} />
         </button>
 
-        <div className="text-[#4E4E4E]">
+        <p className="text-[#4E4E4E]">
           {formatDuration(track.durationInSeconds)}
-        </div>
+        </p>
       </div>
     </li>
   );

@@ -38,7 +38,7 @@ export const MainPage = () => {
         </Title>
 
         <div className="flex items-center mb-[51px] whitespace-nowrap">
-          <div className="mr-[12px]">Искать по:</div>
+          <p className="mr-[12px]">Искать по:</p>
           <div className="flex gap-[10px]">
             <Popover
               open={openFilter === "author"}

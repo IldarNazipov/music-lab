@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 
 import type { TrackData } from "@/api/tracks/get-tracks";
 
-type UseResetPlayerProps = {
+type Props = {
   audioRef: React.RefObject<HTMLAudioElement | null>;
   setActiveTrackId: (id: string | null) => void;
   setPlaying: (isPlaying: boolean) => void;
@@ -19,7 +19,7 @@ export const useResetPlayer = ({
   setCurrentTime,
   setDuration,
   baseTracks,
-}: UseResetPlayerProps) => {
+}: Props) => {
   const location = useLocation();
 
   useEffect(() => {

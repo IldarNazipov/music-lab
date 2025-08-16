@@ -104,7 +104,12 @@ export const MusicPlayer = () => {
       return;
     }
 
-    if (audio.currentTime > 4 || currentTrackIndex === 0) {
+    const PREVIOUS_TRACK_TIME_LIMIT_SECONDS = 4;
+
+    if (
+      audio.currentTime > PREVIOUS_TRACK_TIME_LIMIT_SECONDS ||
+      currentTrackIndex === 0
+    ) {
       audio.currentTime = 0;
       audio.play();
       setPlaying(true);
