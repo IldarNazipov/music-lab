@@ -40,7 +40,7 @@ test.describe("Фича: аудио плеер", () => {
     await page.getByText("Come Together").click();
 
     await expect(page.getByTestId("player")).toBeVisible();
-    await expect(page.getByTestId("pause")).toBeVisible();
+    await expect(page.getByLabel("Пауза")).toBeVisible();
   });
 
   test("Если кликнуть в плеере на кнопку 'предыдущий трек' или 'следующий трек', то плеер переключается и воспроизводит соответствующий трек", async ({
@@ -48,10 +48,10 @@ test.describe("Фича: аудио плеер", () => {
   }) => {
     await page.getByText("Come Together").click();
 
-    await page.getByTestId("prev").click();
+    await page.getByLabel("Предыдущий трек").click();
     await expect(page.getByTestId("playingTrack")).toHaveText("Mule Train");
 
-    await page.getByTestId("next").click();
+    await page.getByLabel("Следующий трек").click();
     await expect(page.getByTestId("playingTrack")).toHaveText("Come Together");
   });
 
@@ -59,7 +59,7 @@ test.describe("Фича: аудио плеер", () => {
     page,
   }) => {
     await page.getByText("Mule Train").click();
-    await page.getByTestId("repeat").click();
+    await page.getByLabel("Включить повтор трека").click();
 
     await page.waitForTimeout(6000);
 
@@ -70,8 +70,8 @@ test.describe("Фича: аудио плеер", () => {
     page,
   }) => {
     await page.getByText("Mule Train").click();
-    await page.getByTestId("shuffle").click();
-    await page.getByTestId("next").click();
+    await page.getByLabel("Включить перемешивание треков").click();
+    await page.getByLabel("Следующий трек").click();
 
     await expect(page.getByTestId("playingTrack")).not.toHaveText(
       "Come Together"

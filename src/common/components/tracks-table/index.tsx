@@ -16,7 +16,7 @@ export const TracksTable = ({
       <p>трек</p>
       <p>исполнитель</p>
       <p>альбом</p>
-      <DurationIcon width={12} height={13} className="ml-auto mr-[10px]" />
+      <DurationIcon className="ml-auto mr-[10px]" />
     </li>
 
     {isLoading ? (

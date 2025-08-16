@@ -2,8 +2,8 @@ import { cn } from "@/lib/сlassnames";
 
 export const PauseIcon = ({
   className,
-  width,
-  height,
+  width = 15,
+  height = 19,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

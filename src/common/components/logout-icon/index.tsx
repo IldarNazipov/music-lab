@@ -2,8 +2,8 @@ import { cn } from "@/lib/сlassnames";
 
 export const LogoutIcon = ({
   className,
-  width,
-  height,
+  width = 41,
+  height = 41,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

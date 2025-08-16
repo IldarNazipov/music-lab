@@ -30,15 +30,15 @@ export const MainLayout = () => {
           "min-w-[244px] pt-[23px] pl-[35px]",
         )}
       >
-        <Link to="/">
-          <Logo width={48} height={48} className="mb-[28px]" />
+        <Link to="/" aria-label="На главную" className="block w-fit mb-[28px]">
+          <Logo />
         </Link>
 
         <button
           onClick={() => setNavVisible(!isNavVisible)}
-          aria-label="Открыть меню"
+          aria-label={isNavVisible ? "Закрыть меню" : "Открыть меню"}
         >
-          <BurgerIcon width={20} height={15} className="mb-[35px]" />
+          <BurgerIcon aria-hidden className="mb-[35px]" />
         </button>
 
         <div
@@ -64,8 +64,8 @@ export const MainLayout = () => {
           >
             Выйти
           </button>
-          <button>
-            <ThemeIcon width={40} height={40} />
+          <button aria-label="Сменить тему">
+            <ThemeIcon aria-hidden />
           </button>
         </div>
       </div>
@@ -73,11 +73,7 @@ export const MainLayout = () => {
       <div className="flex grow flex-col ml-[50px] mt-[24px]">
         <div className="flex items-center">
           <div className="relative grow">
-            <SearchIcon
-              width={16}
-              height={16}
-              className="absolute top-1/2 left-[9px] transform -translate-y-1/2"
-            />
+            <SearchIcon className="absolute top-1/2 left-[9px] transform -translate-y-1/2" />
             <Input
               type="text"
               placeholder="Поиск"
@@ -89,8 +85,8 @@ export const MainLayout = () => {
           </div>
 
           <div className="w-[250px] mr-[90px] flex justify-end">
-            <button onClick={handleLogOut}>
-              <LogoutIcon width={41} height={41} />
+            <button onClick={handleLogOut} aria-label="Выйти">
+              <LogoutIcon aria-hidden />
             </button>
           </div>
         </div>

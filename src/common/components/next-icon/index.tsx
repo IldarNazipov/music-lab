@@ -2,8 +2,8 @@ import { cn } from "@/lib/сlassnames";
 
 export const NextIcon = ({
   className,
-  width,
-  height,
+  width = 17,
+  height = 14,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

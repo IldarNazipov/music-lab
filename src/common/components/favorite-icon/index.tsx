@@ -2,11 +2,11 @@ import { cn } from "@/lib/сlassnames";
 
 export const FavoriteIcon = ({
   className,
-  width,
-  height,
+  width = 16,
+  height = 15,
   isActive,
   ...props
-}: React.ComponentProps<"svg"> & { isActive: boolean | undefined }) => (
+}: React.ComponentProps<"svg"> & { isActive?: boolean }) => (
   <svg
     width={width}
     height={height}

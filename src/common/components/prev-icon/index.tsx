@@ -2,8 +2,8 @@ import { cn } from "@/lib/сlassnames";
 
 export const PrevIcon = ({
   className,
-  width,
-  height,
+  width = 16,
+  height = 14,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

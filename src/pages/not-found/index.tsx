@@ -15,7 +15,7 @@ export const NotFoundPage = () => (
         <Title tag="h2" size="3xl" className="mr-[8px]">
           Страница не найдена
         </Title>
-        <CryingIcon width={52} height={52} />
+        <CryingIcon />
       </div>
 
       <Title tag="h3" size="lg" color="gray" className="pb-[36px] text-center">

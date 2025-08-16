@@ -1,6 +1,6 @@
 export const BurgerIcon = ({
-  width,
-  height,
+  width = 20,
+  height = 15,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

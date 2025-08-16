@@ -2,8 +2,8 @@ import { cn } from "@/lib/сlassnames";
 
 export const ShuffleIcon = ({
   className,
-  width,
-  height,
+  width = 20,
+  height = 18,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

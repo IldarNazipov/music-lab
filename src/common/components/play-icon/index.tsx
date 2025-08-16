@@ -2,8 +2,8 @@ import { cn } from "@/lib/сlassnames";
 
 export const PlayIcon = ({
   className,
-  width,
-  height,
+  width = 16,
+  height = 20,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

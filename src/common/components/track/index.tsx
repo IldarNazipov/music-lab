@@ -20,7 +20,7 @@ export const TrackItem = ({ track }: { track: TrackData }) => {
       )}
     >
       <div className="flex items-center mr-[12px] min-w-0">
-        <CoverIcon width={52} height={52} className="shrink-0 mr-[17px]" />
+        <CoverIcon className="shrink-0 mr-[17px]" />
         <p data-testid="track-name" className="truncate">
           {track.name}
         </p>
@@ -37,8 +37,11 @@ export const TrackItem = ({ track }: { track: TrackData }) => {
             e.stopPropagation();
             toggleFavorite();
           }}
+          aria-label={
+            isFavorite ? "Удалить из избранного" : "Добавить в избранное"
+          }
         >
-          <FavoriteIcon width={16} height={15} isActive={isFavorite} />
+          <FavoriteIcon isActive={isFavorite} aria-hidden />
         </button>
 
         <p className="text-[#4E4E4E]">

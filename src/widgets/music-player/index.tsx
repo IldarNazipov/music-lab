@@ -191,58 +191,68 @@ export const MusicPlayer = () => {
         </div>
         <div className="h-[70px] items-center flex justify-between">
           <div className="gap-[33px] ml-[33px] flex items-center">
-            <button onClick={handlePrevTrack} data-testid="prev">
-              <PrevIcon width={16} height={14} />
+            <button onClick={handlePrevTrack} aria-label="Предыдущий трек">
+              <PrevIcon aria-hidden />
             </button>
-            <button onClick={handlePlayPause}>
-              {isPlaying ? (
-                <PauseIcon width={16} height={20} data-testid="pause" />
-              ) : (
-                <PlayIcon width={16} height={20} />
-              )}
+            <button
+              onClick={handlePlayPause}
+              aria-label={isPlaying ? "Пауза" : "Воспроизвести"}
+            >
+              {isPlaying ? <PauseIcon aria-hidden /> : <PlayIcon aria-hidden />}
             </button>
-            <button onClick={handleNextTrack} data-testid="next">
-              <NextIcon width={17} height={14} />
+            <button onClick={handleNextTrack} aria-label="Следующий трек">
+              <NextIcon aria-hidden />
             </button>
-            <button onClick={() => setRepeat(!isRepeat)} data-testid="repeat">
+            <button
+              onClick={() => setRepeat(!isRepeat)}
+              aria-label={
+                isRepeat ? "Выключить повтор трека" : "Включить повтор трека"
+              }
+            >
               <RepeatIcon
-                width={20}
-                height={18}
+                aria-hidden
                 className={cn({ "text-[#AD61FF]": isRepeat })}
               />
             </button>
             <button
               onClick={() => setShuffle(!isShuffle)}
-              data-testid="shuffle"
+              aria-label={
+                isShuffle
+                  ? "Выключить перемешивание треков"
+                  : "Включить перемешивание треков"
+              }
             >
               <ShuffleIcon
-                width={20}
-                height={18}
+                aria-hidden
                 className={cn({ "text-[#AD61FF]": isShuffle })}
               />
             </button>
             {currentTrack && (
               <div className="flex items-center text-white">
-                <CoverIcon
-                  width={52}
-                  height={52}
-                  className="ml-[17px] mr-[17px] shrink-0"
-                />
+                <CoverIcon className="ml-[17px] mr-[17px] shrink-0" />
                 <div className="mr-[31px]">
                   <div className="truncate mb-[6px]" data-testid="playingTrack">
                     {currentTrack.name}
                   </div>
                   <div className="text-sm">{currentTrack.author}</div>
                 </div>
-                <button className="mr-[38px]" onClick={toggleFavorite}>
-                  <FavoriteIcon width={16} height={15} isActive={isFavorite} />
+                <button
+                  className="mr-[38px]"
+                  onClick={toggleFavorite}
+                  aria-label={
+                    isFavorite
+                      ? "Удалить из избранного"
+                      : "Добавить в избранное"
+                  }
+                >
+                  <FavoriteIcon aria-hidden isActive={isFavorite} />
                 </button>
               </div>
             )}
           </div>
 
           <div className="flex items-center mr-[66px]">
-            <VolumeIcon width={15} height={18} className="mr-[16px]" />
+            <VolumeIcon className="mr-[16px]" />
             <Slider.Root
               className="relative flex items-center w-[109px] h-5 cursor-pointer"
               min={0}

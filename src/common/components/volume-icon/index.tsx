@@ -1,6 +1,6 @@
 export const VolumeIcon = ({
-  width,
-  height,
+  width = 15,
+  height = 18,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

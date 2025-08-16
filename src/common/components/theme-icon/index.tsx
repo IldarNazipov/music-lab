@@ -2,8 +2,8 @@ import { cn } from "@/lib/сlassnames";
 
 export const ThemeIcon = ({
   className,
-  width,
-  height,
+  width = 40,
+  height = 40,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg
