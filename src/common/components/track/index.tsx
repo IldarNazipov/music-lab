@@ -1,39 +1,52 @@
-import { addToFavorites } from "@/api/tracks/add-favorite";
+import { useFavoriteTrack } from "@/api/hooks/use-favorite-track";
 import type { TrackData } from "@/api/tracks/get-tracks";
+import { useTracksContext } from "@/contexts/tracks/use-tracks-context";
+import { formatDuration } from "@/lib/format-duration";
+import { cn } from "@/lib/сlassnames";
+
 import { CoverIcon } from "../cover-icon";
 import { FavoriteIcon } from "../favorite-icon";
-import { formatDuration } from "@/lib/format-duration";
 
 export const TrackItem = ({ track }: { track: TrackData }) => {
-  const handleFavoriteClick = async (id: string) => {
-    await addToFavorites(id);
-  };
+  const { activeTrackId, setActiveTrackId } = useTracksContext();
+  const { isFavorite, toggleFavorite } = useFavoriteTrack(track._id);
 
   return (
-    <li className="grid grid-cols-[6fr_4fr_3fr_max-content] items-center mb-[12px] pr-[10px] hover:bg-neutral-800 cursor-pointer">
-      <div className="flex items-center mr-[12px]">
-        <CoverIcon width={52} height={52} className="shrink-0 mr-[17px]" />
-        <div data-testid="track-name">{track.name}</div>
+    <li
+      onClick={() => setActiveTrackId(track._id)}
+      className={cn(
+        "grid grid-cols-[6fr_4fr_3fr_max-content] h-[52px] items-center pr-[10px] hover:bg-neutral-800 active:bg-neutral-600 cursor-pointer",
+        { "bg-neutral-700": activeTrackId === track._id },
+      )}
+    >
+      <div className="flex items-center mr-[12px] min-w-0">
+        <CoverIcon className="shrink-0 mr-[17px]" />
+        <p data-testid="track-name" className="truncate">
+          {track.name}
+        </p>
       </div>
 
-      <div>{track.author}</div>
+      <p className="truncate">{track.author}</p>
 
-      <div className="text-[#4E4E4E]">{track.album}</div>
+      <p className="text-[#4E4E4E] truncate">{track.album}</p>
 
       <div className="flex items-center">
         <button
           className="w-[16px] h-[14px] bg-center mr-[12px]"
           onClick={(e) => {
             e.stopPropagation();
-            handleFavoriteClick(track._id);
+            toggleFavorite();
           }}
+          aria-label={
+            isFavorite ? "Удалить из избранного" : "Добавить в избранное"
+          }
         >
-          <FavoriteIcon width={16} height={14} />
+          <FavoriteIcon isActive={isFavorite} aria-hidden />
         </button>
 
-        <div className="text-[#4E4E4E]">
+        <p className="text-[#4E4E4E]">
           {formatDuration(track.durationInSeconds)}
-        </div>
+        </p>
       </div>
     </li>
   );

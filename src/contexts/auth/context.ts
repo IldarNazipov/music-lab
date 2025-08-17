@@ -1,5 +1,6 @@
-import type { UserData } from "@/api/user/get-user";
 import { createContext } from "react";
+
+import type { UserData } from "@/api/user/get-user";
 
 type AuthContextType = {
   isLoading: boolean;

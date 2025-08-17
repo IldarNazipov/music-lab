@@ -37,8 +37,8 @@ export const MainPage = () => {
           Треки
         </Title>
 
-        <div className="flex items-center mb-[51px]">
-          <div className="mr-[12px]">Искать по:</div>
+        <div className="flex items-center mb-[51px] whitespace-nowrap">
+          <p className="mr-[12px]">Искать по:</p>
           <div className="flex gap-[10px]">
             <Popover
               open={openFilter === "author"}

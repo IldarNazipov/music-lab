@@ -1,6 +1,6 @@
 export const CryingIcon = ({
-  width,
-  height,
+  width = 52,
+  height = 52,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

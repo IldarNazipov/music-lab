@@ -1,6 +1,6 @@
 export const SearchIcon = ({
-  width,
-  height,
+  width = 16,
+  height = 16,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

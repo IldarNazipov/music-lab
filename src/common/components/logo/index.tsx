@@ -1,6 +1,6 @@
 export const Logo = ({
-  width,
-  height,
+  width = 48,
+  height = 48,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

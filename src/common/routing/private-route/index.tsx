@@ -1,6 +1,7 @@
-import { useAuth } from "@/contexts/auth/use-auth";
-import { Spinner } from "@/common/components/spinner";
 import { Navigate } from "react-router";
+
+import { Spinner } from "@/common/components/spinner";
+import { useAuth } from "@/contexts/auth/use-auth";
 
 export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, isLoading } = useAuth();

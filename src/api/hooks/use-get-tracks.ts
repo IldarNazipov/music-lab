@@ -1,5 +1,6 @@
-import { getTracks } from "@/api/tracks/get-tracks";
 import { useQuery } from "@tanstack/react-query";
+
+import { getTracks } from "@/api/tracks/get-tracks";
 
 export const useGetTracks = () =>
   useQuery({

@@ -1,5 +1,6 @@
-import { useCallback, useMemo, useState } from "react";
 import _ from "lodash";
+import { useCallback, useMemo, useState } from "react";
+
 import type { TrackData } from "@/api/tracks/get-tracks";
 
 type FilterType = "author" | "genre" | "date" | null;

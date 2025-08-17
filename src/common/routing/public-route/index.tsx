@@ -1,6 +1,7 @@
-import { useAuth } from "@/contexts/auth/use-auth";
-import { Spinner } from "@/common/components/spinner";
 import { Navigate, Outlet } from "react-router";
+
+import { Spinner } from "@/common/components/spinner";
+import { useAuth } from "@/contexts/auth/use-auth";
 
 export const PublicRoute = () => {
   const { user, isLoading } = useAuth();

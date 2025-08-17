@@ -1,6 +1,6 @@
 export const DurationIcon = ({
-  width,
-  height,
+  width = 12,
+  height = 13,
   ...props
 }: React.ComponentProps<"svg">) => (
   <svg

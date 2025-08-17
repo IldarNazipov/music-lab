@@ -1,7 +1,9 @@
-import { TracksTable } from "@/common/components/tracks-table";
-import { useGetTracks } from "@/api/hooks/use-get-tracks";
-import { useMemo } from "react";
 import _ from "lodash";
+import { useEffect, useMemo } from "react";
+
+import { useGetTracks } from "@/api/hooks/use-get-tracks";
+import { TracksTable } from "@/common/components/tracks-table";
+import { useTracksContext } from "@/contexts/tracks/use-tracks-context";
 import { useSearch } from "@/hooks/use-search";
 
 export const TracksList = ({ ids }: { ids?: string[] }) => {
@@ -24,6 +26,14 @@ export const TracksList = ({ ids }: { ids?: string[] }) => {
       track.name.toLowerCase().includes(search.trim().toLowerCase()),
     );
   }, [baseTracks, search]);
+
+  const { setBaseTracks } = useTracksContext();
+
+  useEffect(() => {
+    if (baseTracks) {
+      setBaseTracks(baseTracks);
+    }
+  }, [baseTracks, setBaseTracks]);
 
   return <TracksTable tracks={searchedTracks} isLoading={isLoading} />;
 };

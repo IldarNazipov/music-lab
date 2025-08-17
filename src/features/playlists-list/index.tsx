@@ -1,6 +1,6 @@
+import { useGetPlaylists } from "@/api/hooks/use-get-playlists";
 import { Playlist } from "@/common/components/playlist";
 import { SkeletonPlaylists } from "@/common/components/skeleton-playlists";
-import { useGetPlaylists } from "@/api/hooks/use-get-playlists";
 
 export const PlaylistsList = () => {
   const { data, isLoading } = useGetPlaylists();

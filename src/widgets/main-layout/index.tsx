@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Link, Outlet } from "react-router";
+
 import { useLogOut } from "@/api/hooks/use-logout";
 import { BurgerIcon } from "@/common/components/burger-icon";
 import { Input } from "@/common/components/input";
@@ -7,11 +10,11 @@ import { SearchIcon } from "@/common/components/search-icon";
 import { ThemeIcon } from "@/common/components/theme-icon";
 import { useSearch } from "@/hooks/use-search";
 import { cn } from "@/lib/сlassnames";
-import { useState } from "react";
-import { Link, Outlet } from "react-router";
+
+import { MusicPlayer } from "../music-player";
 
 export const MainLayout = () => {
-  const [isVisible, setVisible] = useState(false);
+  const [isNavVisible, setNavVisible] = useState(false);
 
   const [search, setSearch] = useSearch();
 
@@ -23,25 +26,25 @@ export const MainLayout = () => {
     <div className="flex relative min-h-screen h-auto">
       <div
         className={cn(
-          { "bg-[#1C1C1C]": isVisible },
+          { "bg-[#1C1C1C]": isNavVisible },
           "min-w-[244px] pt-[23px] pl-[35px]",
         )}
       >
-        <Link to="/">
-          <Logo width={48} height={48} className="mb-[28px]" />
+        <Link to="/" aria-label="На главную" className="block w-fit mb-[28px]">
+          <Logo />
         </Link>
 
         <button
-          onClick={() => setVisible(!isVisible)}
-          aria-label="Открыть меню"
+          onClick={() => setNavVisible(!isNavVisible)}
+          aria-label={isNavVisible ? "Закрыть меню" : "Открыть меню"}
         >
-          <BurgerIcon width={20} height={15} className="mb-[35px]" />
+          <BurgerIcon aria-hidden className="mb-[35px]" />
         </button>
 
         <div
           className={cn(
             {
-              invisible: !isVisible,
+              invisible: !isNavVisible,
             },
             "text-white flex flex-col gap-[26px]",
           )}
@@ -61,8 +64,8 @@ export const MainLayout = () => {
           >
             Выйти
           </button>
-          <button>
-            <ThemeIcon width={40} height={40} />
+          <button aria-label="Сменить тему">
+            <ThemeIcon aria-hidden />
           </button>
         </div>
       </div>
@@ -70,11 +73,7 @@ export const MainLayout = () => {
       <div className="flex grow flex-col ml-[50px] mt-[24px]">
         <div className="flex items-center">
           <div className="relative grow">
-            <SearchIcon
-              width={16}
-              height={16}
-              className="absolute top-1/2 left-[9px] transform -translate-y-1/2"
-            />
+            <SearchIcon className="absolute top-1/2 left-[9px] transform -translate-y-1/2" />
             <Input
               type="text"
               placeholder="Поиск"
@@ -86,14 +85,15 @@ export const MainLayout = () => {
           </div>
 
           <div className="w-[250px] mr-[90px] flex justify-end">
-            <button onClick={handleLogOut}>
-              <LogoutIcon width={41} height={41} />
+            <button onClick={handleLogOut} aria-label="Выйти">
+              <LogoutIcon aria-hidden />
             </button>
           </div>
         </div>
 
         <Outlet />
       </div>
+      <MusicPlayer />
     </div>
   );
 };
