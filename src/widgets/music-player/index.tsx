@@ -20,6 +20,8 @@ import { usePlayerVolume } from "@/widgets/music-player/hooks/use-player-volume"
 import { useResetPlayer } from "@/widgets/music-player/hooks/use-reset-player";
 import { useStartPlayer } from "@/widgets/music-player/hooks/use-start-player";
 
+const PREVIOUS_TRACK_TIME_LIMIT_SECONDS = 4;
+
 export const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -103,8 +105,6 @@ export const MusicPlayer = () => {
     if (!audio) {
       return;
     }
-
-    const PREVIOUS_TRACK_TIME_LIMIT_SECONDS = 4;
 
     if (
       audio.currentTime > PREVIOUS_TRACK_TIME_LIMIT_SECONDS ||
