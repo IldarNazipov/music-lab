@@ -13,7 +13,7 @@ export const LogoutIcon = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={cn(
-      "text-white hover:text-[#ACACAC] active:text-[#FFFFFF] transition-colors",
+      "hover:text-muted active:text-foreground transition-colors",
       className,
     )}
     {...props}

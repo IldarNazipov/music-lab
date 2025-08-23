@@ -32,7 +32,7 @@ export const MainPage = () => {
 
   return (
     <div className="flex">
-      <div className="text-white w-[70%]">
+      <div className="w-[70%]">
         <Title size="4xl" className="mt-[50px] mb-[60px]">
           Треки
         </Title>
@@ -45,7 +45,7 @@ export const MainPage = () => {
               onOpenChange={() => handleOpenFilter("author")}
             >
               <PopoverTrigger asChild>
-                <button className="relative border-1 px-[21px] py-[10px] rounded-full hover:border-[#D9B6FF] hover:text-[#D9B6FF] active:border-[#AD61FF] active:text-[#AD61FF]">
+                <button className="relative border-1 px-[21px] py-[10px] rounded-full hover:border-[#580ea2] dark:hover:border-[#D9B6FF] hover:text-[#580EA2] dark:hover:text-[#D9B6FF] active:border-[#AD61FF] active:text-[#AD61FF]">
                   исполнителю
                   {Boolean(selectedAuthors.length) && (
                     <Badge className="absolute -top-2.5 -right-1">
@@ -81,7 +81,7 @@ export const MainPage = () => {
               onOpenChange={() => handleOpenFilter("date")}
             >
               <PopoverTrigger asChild>
-                <button className="relative border-1 px-[21px] py-[10px] rounded-full hover:border-[#D9B6FF] hover:text-[#D9B6FF] active:border-[#AD61FF] active:text-[#AD61FF]">
+                <button className="relative border-1 px-[21px] py-[10px] rounded-full hover:border-[#580ea2] dark:hover:border-[#D9B6FF] hover:text-[#580EA2] dark:hover:text-[#D9B6FF]  active:border-[#AD61FF] active:text-[#AD61FF]">
                   году выпуска
                 </button>
               </PopoverTrigger>
@@ -118,7 +118,7 @@ export const MainPage = () => {
               onOpenChange={() => handleOpenFilter("genre")}
             >
               <PopoverTrigger asChild>
-                <button className="relative border-1 px-[21px] py-[10px] rounded-full hover:border-[#D9B6FF] hover:text-[#D9B6FF] active:border-[#AD61FF] active:text-[#AD61FF]">
+                <button className="relative border-1 px-[21px] py-[10px] rounded-full hover:border-[#580ea2] dark:hover:border-[#D9B6FF] hover:text-[#580EA2] dark:hover:text-[#D9B6FF] active:border-[#AD61FF] active:text-[#AD61FF]">
                   жанру
                   {Boolean(selectedGenres.length) && (
                     <Badge className="absolute -top-2.5 -right-1">

@@ -69,7 +69,7 @@ export const SignUpForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <AuthLayout>
-            <CardContent className="flex flex-col gap-[30px] p-0 mb-[59px]">
+            <CardContent className="flex flex-col gap-[30px] p-0 mb-[59px] text-black">
               <FormField
                 control={form.control}
                 name="email"
@@ -80,6 +80,7 @@ export const SignUpForm = () => {
                         disabled={isSubmitting}
                         placeholder="Логин"
                         type="text"
+                        className="placeholder:text-[#D0CECE]"
                         {...field}
                       />
                     </FormControl>
@@ -97,6 +98,7 @@ export const SignUpForm = () => {
                         disabled={isSubmitting}
                         placeholder="Пароль"
                         type="password"
+                        className="placeholder:text-[#D0CECE]"
                         {...field}
                       />
                     </FormControl>
@@ -114,6 +116,7 @@ export const SignUpForm = () => {
                         disabled={isSubmitting}
                         placeholder="Повторите пароль"
                         type="password"
+                        className="placeholder:text-[#D0CECE]"
                         {...field}
                       />
                     </FormControl>
