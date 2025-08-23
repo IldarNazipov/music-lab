@@ -11,7 +11,7 @@ export const DurationIcon = ({
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <circle cx="6" cy="6.24121" r="5.5" stroke="#4E4E4E" />
-    <path d="M4 6.24121H6.5V2.74121" stroke="#4E4E4E" />
+    <circle cx="6" cy="6.24121" r="5.5" stroke="var(--muted-foreground)" />
+    <path d="M4 6.24121H6.5V2.74121" stroke="var(--muted-foreground)" />
   </svg>
 );

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/сlassnames";
 
-export const ThemeIcon = ({
+export const DarkThemeIcon = ({
   className,
   width = 40,
   height = 40,
@@ -13,7 +13,7 @@ export const ThemeIcon = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={cn(
-      "hover:text-[#ACACAC] active:text-[#FFFFFF] transition-colors",
+      "hover:text-muted active:text-foreground transition-colors",
       className,
     )}
     {...props}

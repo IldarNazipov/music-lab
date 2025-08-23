@@ -172,7 +172,7 @@ export const MusicPlayer = () => {
     <>
       <audio ref={audioRef} preload="none" onEnded={handleTrackEnd} />
       <div
-        className="w-full h-[75px] bg-[#1C1C1C] fixed bottom-0 left-0"
+        className="w-full h-[75px] dark:bg-[#1C1C1C] bg-background fixed bottom-0 left-0"
         data-testid="player"
       >
         <div className="flex items-center w-full">
@@ -183,10 +183,10 @@ export const MusicPlayer = () => {
             value={[currentTime]}
             onValueChange={handleSeek}
           >
-            <Slider.Track className="relative h-[5px] bg-[#797979] w-full">
-              <Slider.Range className="absolute h-full bg-white" />
+            <Slider.Track className="relative h-[5px] dark:bg-[#797979] bg-[#D9D9D9] w-full">
+              <Slider.Range className="absolute h-full bg-[#AD61FF]" />
             </Slider.Track>
-            <Slider.Thumb className="h-[10px] rounded-full border-2 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            <Slider.Thumb className="h-[10px] rounded-full border-2 border-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
           </Slider.Root>
         </div>
         <div className="h-[70px] items-center flex justify-between">
@@ -228,7 +228,7 @@ export const MusicPlayer = () => {
               />
             </button>
             {currentTrack && (
-              <div className="flex items-center text-white">
+              <div className="flex items-center">
                 <CoverIcon className="ml-[17px] mr-[17px] shrink-0" />
                 <div className="mr-[31px]">
                   <div className="truncate mb-[6px]" data-testid="playingTrack">
@@ -252,7 +252,7 @@ export const MusicPlayer = () => {
           </div>
 
           <div className="flex items-center mr-[66px]">
-            <VolumeIcon className="mr-[16px]" />
+            <VolumeIcon className="mr-[16px] text-muted-foreground dark:text-white" />
             <Slider.Root
               className="relative flex items-center w-[109px] h-5 cursor-pointer"
               min={0}
@@ -261,10 +261,10 @@ export const MusicPlayer = () => {
               value={[volume]}
               onValueChange={([newVolume]) => setVolume(newVolume)}
             >
-              <Slider.Track className="relative h-[2px] bg-[#797979] w-full">
-                <Slider.Range className="absolute h-full bg-white" />
+              <Slider.Track className="relative h-[2px] dark:bg-[#797979] bg-[#D9D9D9] w-full">
+                <Slider.Range className="absolute h-full bg-[#AD61FF] dark:bg-white" />
               </Slider.Track>
-              <Slider.Thumb className="block w-[12px] h-[12px] bg-[#1C1C1C] rounded-full border-2 border-white focus:outline-none focus:ring-0 focus-visible:outline-none" />
+              <Slider.Thumb className="block w-[12px] h-[12px] bg-background rounded-full border-2 border-muted-foreground dark:border-white focus:outline-none focus:ring-0 focus-visible:outline-none" />
             </Slider.Root>
           </div>
         </div>
