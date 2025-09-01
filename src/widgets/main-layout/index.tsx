@@ -3,22 +3,18 @@ import { Link, Outlet } from "react-router";
 
 import { useLogOut } from "@/api/hooks/use-logout";
 import { BurgerIcon } from "@/common/components/burger-icon";
-import { DarkThemeIcon } from "@/common/components/dark-theme-icon";
 import { Input } from "@/common/components/input";
-import { LightThemeIcon } from "@/common/components/light-theme-icon";
 import { Logo } from "@/common/components/logo";
 import { LogoutIcon } from "@/common/components/logout-icon";
 import { SearchIcon } from "@/common/components/search-icon";
+import { ThemeSwitcher } from "@/features/theme-switcher";
 import { useSearch } from "@/hooks/use-search";
-import { useTheme } from "@/hooks/use-theme";
 import { cn } from "@/lib/сlassnames";
 
 import { MusicPlayer } from "../music-player";
 
 export const MainLayout = () => {
   const [isNavVisible, setNavVisible] = useState(false);
-
-  const { theme, toggleTheme } = useTheme();
 
   const [search, setSearch] = useSearch();
 
@@ -41,11 +37,9 @@ export const MainLayout = () => {
         <button
           onClick={() => setNavVisible(!isNavVisible)}
           aria-label={isNavVisible ? "Закрыть меню" : "Открыть меню"}
+          className="mb-[35px]"
         >
-          <BurgerIcon
-            aria-hidden
-            className="text-black dark:text-[#D3D3D3] mb-[35px]"
-          />
+          <BurgerIcon aria-hidden className="text-black dark:text-[#D3D3D3]" />
         </button>
 
         <div
@@ -71,13 +65,8 @@ export const MainLayout = () => {
           >
             Выйти
           </button>
-          <button aria-label="Сменить тему" onClick={toggleTheme}>
-            {theme === "dark" ? (
-              <DarkThemeIcon aria-hidden />
-            ) : (
-              <LightThemeIcon aria-hidden />
-            )}
-          </button>
+
+          <ThemeSwitcher />
         </div>
       </div>
 

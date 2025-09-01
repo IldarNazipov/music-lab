@@ -17,14 +17,14 @@ test.describe("Фича: смена темы", () => {
   test("Если нажать на кнопку смены темы, то тема сменится", async ({
     page,
   }) => {
-    const noClass = await page.locator("html").getAttribute("class");
-    expect(noClass).toBeNull();
+    await expect(page.locator("html")).not.toHaveClass("dark");
+    await expect(page).toHaveScreenshot("main-light.png");
 
     await page.getByLabel("Открыть меню").click();
     await page.getByLabel("Сменить тему").click();
 
-    const darkClass = await page.locator("html").getAttribute("class");
-    expect(darkClass).toEqual("dark");
+    await expect(page.locator("html")).toHaveClass("dark");
+    await expect(page).toHaveScreenshot("main-dark.png");
   });
 
   test("Если обновить страницу, то настройка темы сохранится", async ({
