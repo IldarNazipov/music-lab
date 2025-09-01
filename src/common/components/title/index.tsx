@@ -18,23 +18,14 @@ const sizeClasses = {
   "7xl": "text-[160px]",
 };
 
-const colorClasses = {
-  white: "text-white",
-  gray: "text-[#4E4E4E]",
-  black: "text-black",
-};
-
 export const Title = ({
   children,
   tag: Component = "h1",
   size = "2xl",
-  color = "white",
   className,
 }: TitleProps) => {
   return (
-    <Component
-      className={cn(sizeClasses[size], colorClasses[color], className)}
-    >
+    <Component className={cn(sizeClasses[size], className)}>
       {children}
     </Component>
   );

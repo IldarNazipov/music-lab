@@ -15,7 +15,7 @@ export const FavoriteIcon = ({
     stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     className={cn(
-      "text-[#696969] hover:text-[#ACACAC] active:text-[#FFFFFF] active:fill-[#696969] transition-colors",
+      "text-muted-foreground hover:text-muted dark:active:text-white dark:active:fill-[#696969] active-text-[#AD61FF] active:fill-[#AD61FF] transition-colors",
       className,
     )}
     {...props}

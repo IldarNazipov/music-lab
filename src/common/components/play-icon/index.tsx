@@ -12,7 +12,7 @@ export const PlayIcon = ({
     viewBox="0 0 16 20"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
-    className={cn("text-[#D9D9D9] hover:text-[#696969]", className)}
+    className={cn("text-[#D9D9D9] hover:text-muted", className)}
     {...props}
   >
     <path

@@ -7,7 +7,7 @@ import { Input } from "@/common/components/input";
 import { Logo } from "@/common/components/logo";
 import { LogoutIcon } from "@/common/components/logout-icon";
 import { SearchIcon } from "@/common/components/search-icon";
-import { ThemeIcon } from "@/common/components/theme-icon";
+import { ThemeSwitcher } from "@/features/theme-switcher";
 import { useSearch } from "@/hooks/use-search";
 import { cn } from "@/lib/сlassnames";
 
@@ -26,7 +26,7 @@ export const MainLayout = () => {
     <div className="flex relative min-h-screen h-auto">
       <div
         className={cn(
-          { "bg-[#1C1C1C]": isNavVisible },
+          { "bg-sidebar": isNavVisible },
           "min-w-[244px] pt-[23px] pl-[35px]",
         )}
       >
@@ -37,8 +37,9 @@ export const MainLayout = () => {
         <button
           onClick={() => setNavVisible(!isNavVisible)}
           aria-label={isNavVisible ? "Закрыть меню" : "Открыть меню"}
+          className="mb-[35px]"
         >
-          <BurgerIcon aria-hidden className="mb-[35px]" />
+          <BurgerIcon aria-hidden className="text-black dark:text-[#D3D3D3]" />
         </button>
 
         <div
@@ -46,7 +47,7 @@ export const MainLayout = () => {
             {
               invisible: !isNavVisible,
             },
-            "text-white flex flex-col gap-[26px]",
+            "flex flex-col items-start gap-[26px]",
           )}
         >
           <Link to="/" className="hover:text-[#D9B6FF] active:text-[#AD61FF]">
@@ -64,9 +65,8 @@ export const MainLayout = () => {
           >
             Выйти
           </button>
-          <button aria-label="Сменить тему">
-            <ThemeIcon aria-hidden />
-          </button>
+
+          <ThemeSwitcher />
         </div>
       </div>
 
@@ -80,7 +80,7 @@ export const MainLayout = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               name="search"
-              className="text-white pl-[40px] placeholder:text-base border-[#4E4E4E]"
+              className="pl-[40px] placeholder:text-base border-muted-foreground"
             />
           </div>
 

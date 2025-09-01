@@ -13,7 +13,7 @@ export const SearchIcon = ({
   >
     <path
       d="M9.92761 10.7749L13.37 15.0645"
-      stroke="white"
+      stroke="currentColor"
       strokeLinecap="round"
     />
     <circle
@@ -21,7 +21,7 @@ export const SearchIcon = ({
       cy="6.48526"
       r="5.5"
       transform="rotate(-38.7469 6.48527 6.48526)"
-      stroke="white"
+      stroke="currentColor"
     />
   </svg>
 );

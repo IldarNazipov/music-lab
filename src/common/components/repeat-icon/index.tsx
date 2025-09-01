@@ -13,7 +13,7 @@ export const RepeatIcon = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={cn(
-      "text-[#696969] hover:text-[#ACACAC] active:text-[#FFFFFF]",
+      "text-muted-foreground hover:text-muted active:text-[#D9D9D9]",
       className,
     )}
     {...props}

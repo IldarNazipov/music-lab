@@ -13,7 +13,7 @@ export const NextIcon = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={cn(
-      "text-[#D9D9D9] hover:text-[#696969] active:text-[#D9D9D9]",
+      "text-[#D9D9D9] hover:text-muted active:text-[#D9D9D9]",
       className,
     )}
     {...props}

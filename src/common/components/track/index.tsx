@@ -15,8 +15,11 @@ export const TrackItem = ({ track }: { track: TrackData }) => {
     <li
       onClick={() => setActiveTrackId(track._id)}
       className={cn(
-        "grid grid-cols-[6fr_4fr_3fr_max-content] h-[52px] items-center pr-[10px] hover:bg-neutral-800 active:bg-neutral-600 cursor-pointer",
-        { "bg-neutral-700": activeTrackId === track._id },
+        "grid grid-cols-[6fr_4fr_3fr_max-content] h-[52px] items-center pr-[10px] hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-600 cursor-pointer",
+        {
+          "dark:bg-neutral-700": activeTrackId === track._id,
+          "bg-neutral-100": activeTrackId === track._id,
+        },
       )}
     >
       <div className="flex items-center mr-[12px] min-w-0">
@@ -28,7 +31,7 @@ export const TrackItem = ({ track }: { track: TrackData }) => {
 
       <p className="truncate">{track.author}</p>
 
-      <p className="text-[#4E4E4E] truncate">{track.album}</p>
+      <p className="text-muted-foreground truncate">{track.album}</p>
 
       <div className="flex items-center">
         <button
@@ -44,7 +47,7 @@ export const TrackItem = ({ track }: { track: TrackData }) => {
           <FavoriteIcon isActive={isFavorite} aria-hidden />
         </button>
 
-        <p className="text-[#4E4E4E]">
+        <p className="text-muted-foreground">
           {formatDuration(track.durationInSeconds)}
         </p>
       </div>
