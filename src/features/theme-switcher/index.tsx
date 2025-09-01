@@ -5,13 +5,11 @@ import { useTheme } from "@/hooks/use-theme";
 export const ThemeSwitcher = () => {
   const { theme, toggleTheme } = useTheme();
 
+  const Icon = theme === "dark" ? DarkThemeIcon : LightThemeIcon;
+
   return (
     <button aria-label="Сменить тему" onClick={toggleTheme}>
-      {theme === "dark" ? (
-        <DarkThemeIcon aria-hidden />
-      ) : (
-        <LightThemeIcon aria-hidden />
-      )}
+      <Icon aria-hidden />
     </button>
   );
 };
